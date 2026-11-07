@@ -2,179 +2,462 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meu Bis Virtual — Crie seu Polvo Roxo!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Bis — Meu Polvo Virtual</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="bubbles" id="bubbles"></div>
-
-  <header class="game-header">
-    <h1>🐙 Meu Bis Virtual</h1>
-    <p>Crie, personalize e cuide do seu polvo roxo!</p>
-  </header>
-
-  <main class="game-container">
-    <!-- Painel do Bis (Visual + Status) -->
-    <section class="stage-card">
-      <div class="bis-name-badge">
-        <span id="bis-display-name">Bis</span>
-        <span class="mood-tag" id="bis-mood">Feliz ✨</span>
+  <div class="app-viewport" id="app-viewport">
+    <!-- ================= TOPO FIXO (STATUS ESTILO POU + NAVEGAÇÃO DE SALAS) ================= -->
+    <header class="top-hud">
+      <div class="stats-pill-bar">
+        <div class="stat-pill" title="Fome">
+          <span class="stat-icon">🍙</span>
+          <div class="mini-bar"><div class="mini-fill" id="hud-hunger"></div></div>
+        </div>
+        <div class="stat-pill" title="Limpeza">
+          <span class="stat-icon">🧼</span>
+          <div class="mini-bar"><div class="mini-fill" id="hud-clean"></div></div>
+        </div>
+        <div class="stat-pill" title="Diversão">
+          <span class="stat-icon">🎾</span>
+          <div class="mini-bar"><div class="mini-fill" id="hud-fun"></div></div>
+        </div>
+        <div class="stat-pill" title="Energia">
+          <span class="stat-icon">⚡</span>
+          <div class="mini-bar"><div class="mini-fill" id="hud-energy"></div></div>
+        </div>
+        <div class="coins-pill" title="Moedas do Bis">
+          <span>🪙</span>
+          <strong id="hud-coins">120</strong>
+        </div>
       </div>
 
-      <div class="aquarium" id="aquarium" title="Clique no Bis para fazer carinho!">
-        <div class="floating-heart" id="floating-effect">💜</div>
+      <!-- Seletor de Sala (Setas + Nome da Sala) -->
+      <div class="room-switcher">
+        <button class="nav-arrow" id="btn-prev-room" aria-label="Sala anterior">‹</button>
+        <div class="room-indicator">
+          <span class="room-emoji" id="room-emoji">🍳</span>
+          <span class="room-title" id="room-title">Cozinha</span>
+          <div class="room-dots" id="room-dots"></div>
+        </div>
+        <button class="nav-arrow" id="btn-next-room" aria-label="Próxima sala">›</button>
+      </div>
+    </header>
 
-        <!-- SVG do Polvo Roxo (Bis) -->
-        <svg class="bis-character" id="bis-svg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
-          <!-- Sombra no fundo -->
-          <ellipse cx="120" cy="215" rx="65" ry="12" fill="rgba(0, 0, 0, 0.25)" />
+    <!-- ================= FUNDO DESLIZANTE (CARROSSEL HORIZONTAL DE SALAS) ================= -->
+    <div class="rooms-track" id="rooms-track">
+      <!-- SALA 0: COZINHA -->
+      <section class="room-slide room-kitchen" data-room="0">
+        <div class="room-wall">
+          <div class="kitchen-window">
+            <div class="window-sky"></div>
+            <div class="window-frame"></div>
+          </div>
+          <div class="kitchen-shelf">
+            <div class="jar jar-purple"></div>
+            <div class="jar jar-pink"></div>
+            <div class="jar jar-cyan"></div>
+          </div>
+          <div class="kitchen-fridge">
+            <div class="fridge-handle"></div>
+            <div class="fridge-note">💜</div>
+          </div>
+        </div>
+        <div class="room-floor kitchen-floor">
+          <div class="table-mat"></div>
+        </div>
+      </section>
 
-          <!-- Tentáculos de trás -->
-          <g id="bis-back-tentacles" fill="#6b21a8">
-            <path d="M65 155 C35 165, 25 195, 50 202 C65 206, 75 185, 85 170 Z" />
-            <path d="M175 155 C205 165, 215 195, 190 202 C175 206, 165 185, 155 170 Z" />
+      <!-- SALA 1: BANHEIRO -->
+      <section class="room-slide room-bathroom" data-room="1">
+        <div class="room-wall">
+          <div class="bath-tiles"></div>
+          <div class="bath-mirror">
+            <div class="mirror-shine"></div>
+          </div>
+          <div class="shower-pipe">
+            <div class="shower-head" id="shower-head"></div>
+          </div>
+        </div>
+        <div class="room-floor bath-floor">
+          <div class="bath-rug"></div>
+        </div>
+      </section>
+
+      <!-- SALA 2: SALA DE JOGOS -->
+      <section class="room-slide room-playroom" data-room="2">
+        <div class="room-wall">
+          <div class="poster-frame">🐙<br><small>BIS</small></div>
+          <div class="neon-sign">PLAY</div>
+          <div class="speaker-box left-spk"></div>
+          <div class="speaker-box right-spk"></div>
+        </div>
+        <div class="room-floor play-floor">
+          <div class="play-mat"></div>
+        </div>
+      </section>
+
+      <!-- SALA 3: QUARTO -->
+      <section class="room-slide room-bedroom" data-room="3">
+        <div class="room-wall">
+          <div class="night-window">
+            <div class="moon"></div>
+            <div class="star s1"></div>
+            <div class="star s2"></div>
+            <div class="star s3"></div>
+          </div>
+          <div class="hanging-lamp" id="room-lamp" title="Clique para apagar/acender a luz">
+            <div class="lamp-cord"></div>
+            <div class="lamp-shade"></div>
+            <div class="lamp-glow"></div>
+          </div>
+        </div>
+        <div class="room-floor bedroom-floor">
+          <div class="bed-cushion"></div>
+        </div>
+      </section>
+
+      <!-- SALA 4: CLOSET (CRIE SEU BIS) -->
+      <section class="room-slide room-closet" data-room="4">
+        <div class="room-wall">
+          <div class="closet-arch"></div>
+          <div class="closet-rack"></div>
+        </div>
+        <div class="room-floor closet-floor">
+          <div class="podium-base"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Overlay de Escuridão quando a luz do quarto está apagada -->
+    <div class="night-overlay" id="night-overlay"></div>
+
+    <!-- ================= PALCO CENTRAL FIXO DO BIS ================= -->
+    <main class="bis-stage" id="bis-stage">
+      <!-- Nome flutuante discreto -->
+      <div class="bis-nametag" id="bis-nametag">Bis</div>
+
+      <!-- Efeitos climáticos/interativos sobre o Bis (Chuveiro, Zzz, Notas, Corações) -->
+      <div class="stage-fx-layer" id="stage-fx-layer"></div>
+
+      <!-- Bolhas de sabão quando está ensaboado -->
+      <div class="foam-container" id="foam-container"></div>
+
+      <!-- Bola saltitante da sala de jogos -->
+      <div class="bouncing-ball" id="bouncing-ball">⚽</div>
+
+      <!-- PERSONAGEM BIS: Polvo 3D Articulado Minimalista & Estiloso -->
+      <div class="bis-wrapper" id="bis-wrapper" title="Faça carinho ou interaja com o Bis!">
+        <svg class="bis-svg" id="bis-svg" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Gradiente 3D do corpo do Bis (fiel ao chaveiro articulado roxo) -->
+            <radialGradient id="bisBodyGrad" cx="38%" cy="30%" r="65%">
+              <stop offset="0%" id="grad-highlight" stop-color="#8b5cf6" />
+              <stop offset="45%" id="grad-main" stop-color="#5b21ff" />
+              <stop offset="100%" id="grad-shadow" stop-color="#340ca8" />
+            </radialGradient>
+
+            <radialGradient id="bisSegmentGrad" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" id="seg-highlight" stop-color="#7c3aed" />
+              <stop offset="55%" id="seg-main" stop-color="#4f16e8" />
+              <stop offset="100%" id="seg-shadow" stop-color="#290785" />
+            </radialGradient>
+
+            <radialGradient id="bisBackSegGrad" cx="40%" cy="35%" r="70%">
+              <stop offset="0%" stop-color="#4c1d95" />
+              <stop offset="100%" stop-color="#1e0557" />
+            </radialGradient>
+
+            <!-- Textura sutil de brilho plástico 3D -->
+            <filter id="softShadow" x="-15%" y="-15%" width="130%" height="130%">
+              <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#090318" flood-opacity="0.38" />
+            </filter>
+          </defs>
+
+          <!-- Sombra projetada no chão -->
+          <ellipse class="bis-floor-shadow" cx="180" cy="272" rx="115" ry="22" fill="rgba(8, 3, 24, 0.35)" />
+
+          <!-- TENTÁCULOS DE TRÁS (Esquerda e Direita) -->
+          <g class="tentacles-back" fill="url(#bisBackSegGrad)">
+            <!-- Traseiro Esquerdo -->
+            <g class="tentacle-chain back-left">
+              <rect x="82" y="182" width="28" height="22" rx="11" transform="rotate(-28 96 193)" />
+              <rect x="60" y="194" width="26" height="21" rx="10" transform="rotate(-22 73 204)" />
+              <circle cx="48" cy="210" r="12" />
+            </g>
+            <!-- Traseiro Direito -->
+            <g class="tentacle-chain back-right">
+              <rect x="250" y="182" width="28" height="22" rx="11" transform="rotate(28 264 193)" />
+              <rect x="274" y="194" width="26" height="21" rx="10" transform="rotate(22 287 204)" />
+              <circle cx="312" cy="210" r="12" />
+            </g>
           </g>
 
-          <!-- Tentáculos da frente -->
-          <g id="bis-tentacles" fill="#9333ea">
-            <path class="tentacle t1" d="M75 150 C50 175, 45 205, 70 208 C88 210, 92 185, 98 165 Z" />
-            <path class="tentacle t2" d="M102 155 C92 185, 92 212, 112 212 C125 212, 122 185, 120 165 Z" />
-            <path class="tentacle t3" d="M138 155 C148 185, 148 212, 128 212 C115 212, 118 185, 120 165 Z" />
-            <path class="tentacle t4" d="M165 150 C190 175, 195 205, 170 208 C152 210, 148 185, 142 165 Z" />
+          <!-- TENTÁCULOS ARTICULADOS DA FRENTE (6 Tentáculos Segmentados estilo impressão 3D) -->
+          <g class="tentacles-front" filter="url(#softShadow)">
+            <!-- Tentáculo 1 (Extrema Esquerda) -->
+            <g class="tentacle-articulated t-1" style="--delay: 0s">
+              <!-- Elo 1 -->
+              <rect class="seg" x="92" y="186" width="32" height="25" rx="12" transform="rotate(-25 108 198)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="90" y="196" width="12" height="5" rx="2.5" transform="rotate(-25 96 198)" fill="#18044a" />
+              <!-- Elo 2 -->
+              <rect class="seg" x="68" y="201" width="30" height="24" rx="12" transform="rotate(-20 83 213)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="66" y="211" width="11" height="5" rx="2.5" transform="rotate(-20 71 213)" fill="#18044a" />
+              <!-- Ponta -->
+              <ellipse class="seg-tip" cx="54" cy="225" rx="15" ry="13" transform="rotate(-12 54 225)" fill="url(#bisBodyGrad)" />
+            </g>
+
+            <!-- Tentáculo 2 (Esquerda Frontal) -->
+            <g class="tentacle-articulated t-2" style="--delay: 0.12s">
+              <!-- Elo 1 -->
+              <rect class="seg" x="115" y="192" width="32" height="27" rx="12" transform="rotate(-16 131 205)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="118" y="206" width="9" height="10" rx="3" transform="rotate(-16 122 211)" fill="#18044a" />
+              <!-- Elo 2 -->
+              <rect class="seg" x="98" y="213" width="31" height="26" rx="12" transform="rotate(-14 113 226)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="100" y="227" width="8" height="9" rx="3" transform="rotate(-14 104 231)" fill="#18044a" />
+              <!-- Elo 3 / Ponta -->
+              <ellipse class="seg-tip" cx="95" cy="248" rx="16" ry="14" transform="rotate(-8 95 248)" fill="url(#bisBodyGrad)" />
+            </g>
+
+            <!-- Tentáculo 3 (Centro-Esquerda) -->
+            <g class="tentacle-articulated t-3" style="--delay: 0.24s">
+              <!-- Elo 1 -->
+              <rect class="seg" x="145" y="195" width="31" height="28" rx="12" transform="rotate(-6 160 209)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="155" y="212" width="8" height="11" rx="3" transform="rotate(-6 159 217)" fill="#18044a" />
+              <!-- Elo 2 -->
+              <rect class="seg" x="139" y="219" width="30" height="27" rx="12" transform="rotate(-5 154 232)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="149" y="236" width="8" height="10" rx="3" transform="rotate(-5 153 241)" fill="#18044a" />
+              <!-- Ponta -->
+              <ellipse class="seg-tip" cx="149" cy="258" rx="16" ry="14" fill="url(#bisBodyGrad)" />
+            </g>
+
+            <!-- Tentáculo 4 (Centro-Direita) -->
+            <g class="tentacle-articulated t-4" style="--delay: 0.36s">
+              <!-- Elo 1 -->
+              <rect class="seg" x="184" y="195" width="31" height="28" rx="12" transform="rotate(6 199 209)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="197" y="212" width="8" height="11" rx="3" transform="rotate(6 201 217)" fill="#18044a" />
+              <!-- Elo 2 -->
+              <rect class="seg" x="191" y="219" width="30" height="27" rx="12" transform="rotate(5 206 232)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="203" y="236" width="8" height="10" rx="3" transform="rotate(5 207 241)" fill="#18044a" />
+              <!-- Ponta -->
+              <ellipse class="seg-tip" cx="211" cy="258" rx="16" ry="14" fill="url(#bisBodyGrad)" />
+            </g>
+
+            <!-- Tentáculo 5 (Direita Frontal) -->
+            <g class="tentacle-articulated t-5" style="--delay: 0.48s">
+              <!-- Elo 1 -->
+              <rect class="seg" x="213" y="192" width="32" height="27" rx="12" transform="rotate(16 229 205)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="233" y="206" width="9" height="10" rx="3" transform="rotate(16 238 211)" fill="#18044a" />
+              <!-- Elo 2 -->
+              <rect class="seg" x="231" y="213" width="31" height="26" rx="12" transform="rotate(14 247 226)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="252" y="227" width="8" height="9" rx="3" transform="rotate(14 256 231)" fill="#18044a" />
+              <!-- Ponta -->
+              <ellipse class="seg-tip" cx="265" cy="248" rx="16" ry="14" transform="rotate(8 265 248)" fill="url(#bisBodyGrad)" />
+            </g>
+
+            <!-- Tentáculo 6 (Extrema Direita) -->
+            <g class="tentacle-articulated t-6" style="--delay: 0.6s">
+              <!-- Elo 1 -->
+              <rect class="seg" x="236" y="186" width="32" height="25" rx="12" transform="rotate(25 252 198)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="258" y="196" width="12" height="5" rx="2.5" transform="rotate(25 264 198)" fill="#18044a" />
+              <!-- Elo 2 -->
+              <rect class="seg" x="262" y="201" width="30" height="24" rx="12" transform="rotate(20 277 213)" fill="url(#bisSegmentGrad)" />
+              <rect class="joint-slot" x="283" y="211" width="11" height="5" rx="2.5" transform="rotate(20 289 213)" fill="#18044a" />
+              <!-- Ponta -->
+              <ellipse class="seg-tip" cx="306" cy="225" rx="15" ry="13" transform="rotate(12 306 225)" fill="url(#bisBodyGrad)" />
+            </g>
           </g>
 
-          <!-- Ventosas -->
-          <g fill="#d8b4fe" opacity="0.85">
-            <circle cx="62" cy="195" r="5" />
-            <circle cx="72" cy="201" r="4" />
-            <circle cx="105" cy="203" r="5" />
-            <circle cx="135" cy="203" r="5" />
-            <circle cx="178" cy="195" r="5" />
-            <circle cx="168" cy="201" r="4" />
-          </g>
+          <!-- CABEÇA REDONDA DO BIS (Fiel ao modelo 3D da foto) -->
+          <g class="bis-head-group" id="bis-head-group" filter="url(#softShadow)">
+            <!-- Domo principal da cabeça -->
+            <path
+              id="bis-head-dome"
+              d="M 118 142
+                 C 114 82, 246 82, 242 142
+                 C 240 182, 220 202, 180 202
+                 C 140 202, 120 182, 118 142 Z"
+              fill="url(#bisBodyGrad)"
+            />
 
-          <!-- Cabeça / Corpo do Bis -->
-          <path id="bis-body" d="M60 115 C60 60, 180 60, 180 115 C185 150, 165 170, 120 170 C75 170, 55 150, 60 115 Z" fill="#9333ea" />
+            <!-- Brilho superior suave estilo plástico 3D -->
+            <ellipse cx="158" cy="112" rx="24" ry="11" transform="rotate(-18 158 112)" fill="rgba(255, 255, 255, 0.22)" />
 
-          <!-- Brilho na cabeça -->
-          <ellipse cx="92" cy="88" rx="18" ry="10" transform="rotate(-25 92 88)" fill="rgba(255, 255, 255, 0.28)" />
+            <!-- Fendas de encaixe na base da cabeça (característica do polvo articulado 3D) -->
+            <g fill="#19044e" opacity="0.75">
+              <path d="M128 190 Q133 178 139 192 Z" />
+              <path d="M154 196 Q160 182 166 198 Z" />
+              <path d="M194 198 Q200 182 206 196 Z" />
+              <path d="M221 192 Q227 178 232 190 Z" />
+            </g>
 
-          <!-- Bochechas -->
-          <ellipse cx="78" cy="132" rx="10" ry="6" fill="#f472b6" opacity="0.65" />
-          <ellipse cx="162" cy="132" rx="10" ry="6" fill="#f472b6" opacity="0.65" />
+            <!-- Manchas de sujeira (aparecem quando a limpeza cai) -->
+            <g id="bis-dirt-spots" opacity="0">
+              <circle cx="140" cy="125" r="9" fill="#5c4033" opacity="0.55" />
+              <circle cx="148" cy="132" r="5" fill="#5c4033" opacity="0.45" />
+              <circle cx="218" cy="165" r="8" fill="#5c4033" opacity="0.5" />
+              <circle cx="165" cy="182" r="7" fill="#5c4033" opacity="0.5" />
+            </g>
 
-          <!-- Olhos -->
-          <g id="bis-eyes">
-            <!-- Olho esquerdo -->
-            <circle cx="95" cy="120" r="12" fill="#1e1b4b" />
-            <circle class="eye-shine" cx="91" cy="115" r="4.5" fill="#ffffff" />
-            <circle class="eye-shine-sm" cx="99" cy="124" r="2" fill="#ffffff" />
-            <!-- Olho direito -->
-            <circle cx="145" cy="120" r="12" fill="#1e1b4b" />
-            <circle class="eye-shine" cx="141" cy="115" r="4.5" fill="#ffffff" />
-            <circle class="eye-shine-sm" cx="149" cy="124" r="2" fill="#ffffff" />
-          </g>
+            <!-- OLHOS GRANDES BRANCOS COM PUPILAS PRETAS (Exatamente como na foto!) -->
+            <g id="bis-eyes-open">
+              <!-- Olho Esquerdo -->
+              <g class="eye-socket" transform="translate(154, 146)">
+                <ellipse cx="0" cy="2" rx="19" ry="20" fill="rgba(18, 4, 58, 0.35)" />
+                <circle cx="0" cy="0" r="18" fill="#f8fafc" />
+                <circle cx="0" cy="0" r="18" fill="none" stroke="#e2e8f0" stroke-width="1.5" />
+                <g class="pupil-group" id="pupil-left">
+                  <circle cx="-2" cy="1" r="10.5" fill="#0f172a" />
+                  <circle cx="-5" cy="-3" r="3.2" fill="#ffffff" />
+                </g>
+              </g>
 
-          <!-- Boca -->
-          <path id="bis-mouth" d="M110 134 Q120 145 130 134" stroke="#1e1b4b" stroke-width="4" stroke-linecap="round" fill="none" />
+              <!-- Olho Direito -->
+              <g class="eye-socket" transform="translate(206, 146)">
+                <ellipse cx="0" cy="2" rx="19" ry="20" fill="rgba(18, 4, 58, 0.35)" />
+                <circle cx="0" cy="0" r="18" fill="#f8fafc" />
+                <circle cx="0" cy="0" r="18" fill="none" stroke="#e2e8f0" stroke-width="1.5" />
+                <g class="pupil-group" id="pupil-right">
+                  <circle cx="-2" cy="1" r="10.5" fill="#0f172a" />
+                  <circle cx="-5" cy="-3" r="3.2" fill="#ffffff" />
+                </g>
+              </g>
+            </g>
 
-          <!-- Acessórios no topo -->
-          <g id="bis-accessory">
-            <!-- Preenchido via JS -->
+            <!-- Olhos Fechados / Felizes / Dormindo (Alternados via JS) -->
+            <g id="bis-eyes-closed" style="display: none">
+              <path d="M 138 148 Q 154 134 170 148" stroke="#0f172a" stroke-width="5" stroke-linecap="round" fill="none" />
+              <path d="M 190 148 Q 206 134 222 148" stroke="#0f172a" stroke-width="5" stroke-linecap="round" fill="none" />
+            </g>
+
+            <!-- Boca minimalista que só aparece ao comer (estilo Pou) -->
+            <ellipse id="bis-mouth-eat" cx="180" cy="174" rx="0" ry="0" fill="#1e0557" />
+
+            <!-- ACESSÓRIOS NO TOPO (Argola de chaveiro original da foto, Coroa, Cartola, Óculos, etc.) -->
+            <g id="bis-accessory-layer"></g>
           </g>
         </svg>
       </div>
+    </main>
 
-      <!-- Barras de Status -->
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-label">
-            <span>🍤 Fome</span>
-            <span id="stat-hunger-val">85%</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill hunger" id="bar-hunger" style="width: 85%"></div>
-          </div>
-        </div>
-
-        <div class="stat-item">
-          <div class="stat-label">
-            <span>🎾 Alegria</span>
-            <span id="stat-happy-val">90%</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill happy" id="bar-happy" style="width: 90%"></div>
-          </div>
-        </div>
-
-        <div class="stat-item">
-          <div class="stat-label">
-            <span>💤 Energia</span>
-            <span id="stat-energy-val">80%</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill energy" id="bar-energy" style="width: 80%"></div>
-          </div>
+    <!-- ================= DOCK INFERIOR CONTEXTUAL (MUDA CONFORME A SALA) ================= -->
+    <footer class="bottom-dock" id="bottom-dock">
+      <!-- DOCK SALA 0: COZINHA -->
+      <div class="dock-panel active" data-dock="0">
+        <div class="dock-hint">Toque em um alimento para dar ao Bis!</div>
+        <div class="dock-items">
+          <button class="dock-item-btn" data-action="feed" data-food="🍤" data-hunger="18" data-coins="5">
+            <span class="item-emoji">🍤</span>
+            <span class="item-label">Camarão</span>
+          </button>
+          <button class="dock-item-btn" data-action="feed" data-food="🍣" data-hunger="22" data-coins="8">
+            <span class="item-emoji">🍣</span>
+            <span class="item-label">Sushi</span>
+          </button>
+          <button class="dock-item-btn" data-action="feed" data-food="🍕" data-hunger="25" data-coins="10">
+            <span class="item-emoji">🍕</span>
+            <span class="item-label">Pizza</span>
+          </button>
+          <button class="dock-item-btn" data-action="feed" data-food="🧁" data-hunger="14" data-fun="10" data-coins="6">
+            <span class="item-emoji">🧁</span>
+            <span class="item-label">Cupcake</span>
+          </button>
+          <button class="dock-item-btn" data-action="feed" data-food="🧪" data-hunger="35" data-energy="25" data-coins="15">
+            <span class="item-emoji">🧪</span>
+            <span class="item-label">Super Poção</span>
+          </button>
         </div>
       </div>
 
-      <!-- Botões de Cuidado -->
-      <div class="care-actions">
-        <button class="btn-action" id="btn-feed">🍤 Alimentar</button>
-        <button class="btn-action" id="btn-play">🫧 Brincar</button>
-        <button class="btn-action" id="btn-sleep">🌙 Dormir</button>
-      </div>
-    </section>
-
-    <!-- Painel de Customização (Crie seu Bis) -->
-    <section class="customizer-card">
-      <h2>🎨 Crie seu Bis</h2>
-
-      <div class="form-group">
-        <label for="input-name">Nome do seu Bis</label>
-        <input type="text" id="input-name" maxlength="18" value="Bis" placeholder="Digite o nome..." />
-      </div>
-
-      <div class="form-group">
-        <label>Tom de Roxo</label>
-        <div class="color-options" id="color-options">
-          <button class="color-swatch active" data-primary="#9333ea" data-secondary="#6b21a8" style="background: #9333ea" title="Roxo Clássico"></button>
-          <button class="color-swatch" data-primary="#a855f7" data-secondary="#7e22ce" style="background: #a855f7" title="Lavanda Neon"></button>
-          <button class="color-swatch" data-primary="#7c3aed" data-secondary="#5b21b6" style="background: #7c3aed" title="Violeta Profundo"></button>
-          <button class="color-swatch" data-primary="#c026d3" data-secondary="#86198f" style="background: #c026d3" title="Roxo Fúcsia"></button>
-          <button class="color-swatch" data-primary="#4f46e5" data-secondary="#3730a3" style="background: #4f46e5" title="Índigo Abissal"></button>
+      <!-- DOCK SALA 1: BANHEIRO -->
+      <div class="dock-panel" data-dock="1">
+        <div class="dock-hint">Ensaboe o Bis e depois enxágue com o chuveiro!</div>
+        <div class="dock-items">
+          <button class="dock-item-btn" id="btn-soap">
+            <span class="item-emoji">🧼</span>
+            <span class="item-label">Ensaboar</span>
+          </button>
+          <button class="dock-item-btn" id="btn-shower">
+            <span class="item-emoji">🚿</span>
+            <span class="item-label">Chuveiro</span>
+          </button>
+          <button class="dock-item-btn" id="btn-brush">
+            <span class="item-emoji">✨</span>
+            <span class="item-label">Polir 3D</span>
+          </button>
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Acessório</label>
-        <div class="pill-options" id="accessory-options">
-          <button class="pill-btn active" data-acc="none">Nenhum</button>
-          <button class="pill-btn" data-acc="crown">👑 Coroa</button>
-          <button class="pill-btn" data-acc="bow">🎀 Laço</button>
-          <button class="pill-btn" data-acc="hat">🎩 Cartola</button>
-          <button class="pill-btn" data-acc="flower">🌸 Flor</button>
+      <!-- DOCK SALA 2: SALA DE JOGOS -->
+      <div class="dock-panel" data-dock="2">
+        <div class="dock-hint">Brinque com o Bis para ganhar moedas 🪙 e diversão!</div>
+        <div class="dock-items">
+          <button class="dock-item-btn" id="btn-ball">
+            <span class="item-emoji">⚽</span>
+            <span class="item-label">Embaixadinha</span>
+          </button>
+          <button class="dock-item-btn" id="btn-dance">
+            <span class="item-emoji">🎵</span>
+            <span class="item-label">Dançar</span>
+          </button>
+          <button class="dock-item-btn" id="btn-tickle">
+            <span class="item-emoji">👋</span>
+            <span class="item-label">Cócegas</span>
+          </button>
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Expressão</label>
-        <div class="pill-options" id="expression-options">
-          <button class="pill-btn active" data-exp="happy">😊 Feliz</button>
-          <button class="pill-btn" data-exp="surprised">😮 Surpreso</button>
-          <button class="pill-btn" data-exp="wink">😉 Piscando</button>
-          <button class="pill-btn" data-exp="cool">😎 Estiloso</button>
+      <!-- DOCK SALA 3: QUARTO -->
+      <div class="dock-panel" data-dock="3">
+        <div class="dock-hint">Apague a lâmpada para o Bis dormir e recuperar energia!</div>
+        <div class="dock-items">
+          <button class="dock-item-btn" id="btn-toggle-sleep">
+            <span class="item-emoji" id="sleep-btn-icon">💡</span>
+            <span class="item-label" id="sleep-btn-text">Apagar Luz</span>
+          </button>
+          <button class="dock-item-btn" id="btn-lullaby">
+            <span class="item-emoji">🎶</span>
+            <span class="item-label">Canção de Ninar</span>
+          </button>
         </div>
       </div>
 
-      <div class="customizer-footer">
-        <button class="btn-secondary" id="btn-random">🎲 Bis Aleatório</button>
-        <button class="btn-primary" id="btn-save">💾 Salvar Bis</button>
+      <!-- DOCK SALA 4: CLOSET (CRIE SEU BIS) -->
+      <div class="dock-panel" data-dock="4">
+        <div class="closet-controls">
+          <div class="closet-row">
+            <span class="closet-label">Cor:</span>
+            <div class="swatch-list" id="color-swatches">
+              <button class="swatch active" data-hi="#8b5cf6" data-main="#5b21ff" data-sh="#340ca8" style="background:#5b21ff" title="Roxo Bis Original"></button>
+              <button class="swatch" data-hi="#c084fc" data-main="#9333ea" data-sh="#581c87" style="background:#9333ea" title="Violeta Pop"></button>
+              <button class="swatch" data-hi="#f472b6" data-main="#db2777" data-sh="#831843" style="background:#db2777" title="Rosa Neon"></button>
+              <button class="swatch" data-hi="#60a5fa" data-main="#2563eb" data-sh="#1e3a8a" style="background:#2563eb" title="Azul Elétrico"></button>
+              <button class="swatch" data-hi="#34d399" data-main="#059669" data-sh="#064e3b" style="background:#059669" title="Menta Cyber"></button>
+              <button class="swatch" data-hi="#fbbf24" data-main="#d97706" data-sh="#78350f" style="background:#d97706" title="Dourado"></button>
+            </div>
+          </div>
+
+          <div class="closet-row">
+            <span class="closet-label">Estilo:</span>
+            <div class="acc-list" id="accessory-buttons">
+              <button class="chip-btn active" data-acc="keychain">🔑 Chaveiro</button>
+              <button class="chip-btn" data-acc="none">Sem nada</button>
+              <button class="chip-btn" data-acc="crown">👑 Coroa</button>
+              <button class="chip-btn" data-acc="shades">😎 Óculos</button>
+              <button class="chip-btn" data-acc="tophat">🎩 Cartola</button>
+              <button class="chip-btn" data-acc="bow">🎀 Laço</button>
+            </div>
+          </div>
+
+          <div class="closet-row name-row">
+            <input type="text" id="bis-name-input" maxlength="16" value="Bis" placeholder="Nome do seu Bis..." />
+            <button class="chip-btn random-btn" id="btn-random-bis">🎲 Aleatório</button>
+          </div>
+        </div>
       </div>
-      <p class="save-feedback" id="save-feedback"></p>
-    </section>
-  </main>
+    </footer>
+  </div>
 
   <script src="js/app.js"></script>
 </body>
