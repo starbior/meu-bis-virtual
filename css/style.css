@@ -18,20 +18,20 @@ body {
   overflow: hidden;
   position: fixed;
   inset: 0;
-  font-family: 'Fredoka', system-ui, -apple-system, sans-serif;
-  background: radial-gradient(circle at center, #1e1338 0%, #090514 100%);
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at center, #1b1130 0%, #090514 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  touch-action: pan-x;
+  touch-action: none;
 }
 
-/* ================= PROPORÇÃO DE CELULAR FIXA (NO PC E NO CELULAR) ================= */
+/* ================= PROPORÇÃO DE CELULAR FIXA (9:16) ================= */
 .phone-screen {
   position: relative;
   width: 100vw;
   height: 100vh;
-  max-width: min(430px, 56.25vh); /* Proporção 9:16 no computador */
+  max-width: min(430px, 56.25vh);
   max-height: 920px;
   overflow: hidden;
   display: flex;
@@ -51,7 +51,7 @@ body {
   }
 }
 
-/* ================= CARROSSEL DE FUNDOS (DESLIZA POR CÔMODO) ================= */
+/* ================= CARROSSEL DE SALAS ================= */
 .rooms-carousel {
   position: absolute;
   inset: 0;
@@ -94,14 +94,14 @@ body.is-sleeping .night-overlay {
   opacity: 1;
 }
 
-/* ================= TOPO LIMPO ESTILO POU (SEM CAIXAS EM VOLTA) ================= */
+/* ================= TOPO HARMÔNICO ================= */
 .pou-top-bar {
   position: relative;
   z-index: 30;
-  padding: 18px 18px 0;
+  padding: 18px 20px 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   pointer-events: none;
 }
 
@@ -116,15 +116,15 @@ body.is-sleeping .night-overlay {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 1.15rem;
+  font-size: 1.08rem;
   font-weight: 700;
   color: #ffffff;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.38);
 }
 
 .coin-orb {
-  font-size: 1.35rem;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  font-size: 1.25rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.28));
 }
 
 .floating-meters {
@@ -141,14 +141,14 @@ body.is-sleeping .night-overlay {
 }
 
 .orb-emoji {
-  font-size: 1.25rem;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+  font-size: 1.18rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
 }
 
 .orb-bar {
-  width: 34px;
-  height: 6px;
-  background: rgba(0, 0, 0, 0.28);
+  width: 32px;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.22);
   border-radius: 99px;
   overflow: hidden;
 }
@@ -158,16 +158,15 @@ body.is-sleeping .night-overlay {
   width: 85%;
   border-radius: 99px;
   background: #4ade80;
-  transition: width 0.35s ease, background-color 0.3s ease;
+  transition: width 0.35s ease, background-color 0.35s ease;
 }
 
-/* Navegação Limpa (< Cozinha >) */
 .room-nav-row {
   pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2px 6px;
+  padding: 2px 4px;
 }
 
 .clean-arrow {
@@ -175,55 +174,45 @@ body.is-sleeping .night-overlay {
   border: none;
   color: #ffffff;
   font-family: inherit;
-  font-size: 2.4rem;
-  font-weight: 700;
+  font-size: 2.1rem;
+  font-weight: 600;
   line-height: 1;
   cursor: pointer;
   padding: 0 10px;
-  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.38);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.32);
   transition: transform 0.15s ease;
 }
 
 .clean-arrow:hover {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 .clean-arrow:active {
-  transform: scale(0.9);
+  transform: scale(0.92);
 }
 
 .clean-room-title {
-  font-size: 1.45rem;
-  font-weight: 700;
+  font-size: 1.28rem;
+  font-weight: 600;
   color: #ffffff;
-  letter-spacing: 0.5px;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.42);
+  letter-spacing: 0.4px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.36);
 }
 
-/* ================= PALCO CENTRAL DO BIS ================= */
+/* ================= PALCO CENTRAL DO BIS (NA LINHA ÁUREA Y=556) ================= */
 .bis-stage {
   position: absolute;
   left: 50%;
-  top: 56%;
+  top: 54%;
   transform: translate(-50%, -50%);
-  width: 340px;
-  height: 310px;
+  width: 320px;
+  height: 295px;
   z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   pointer-events: none;
-}
-
-.bis-nametag {
-  position: absolute;
-  top: -10px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  opacity: 0.9;
 }
 
 .bis-wrapper {
@@ -237,12 +226,16 @@ body.is-sleeping .night-overlay {
 }
 
 .bis-svg {
-  width: 330px;
-  height: 300px;
+  width: 310px;
+  height: 285px;
   overflow: visible;
 }
 
-/* Partículas, Água e Espuma Sem Contorno */
+#bis-mouth-eat {
+  transition: rx 0.12s ease, ry 0.12s ease;
+}
+
+/* Partículas, Água e Espuma */
 .stage-fx-layer,
 .foam-container {
   position: absolute;
@@ -253,26 +246,26 @@ body.is-sleeping .night-overlay {
 
 .fx-particle {
   position: absolute;
-  font-size: 2rem;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
-  animation: floatUpFade 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  font-size: 1.7rem;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+  animation: floatUpFade 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes floatUpFade {
   0% {
     opacity: 1;
-    transform: translateY(0) scale(0.5);
+    transform: translateY(0) scale(0.6);
   }
   100% {
     opacity: 0;
-    transform: translateY(-100px) scale(1.3);
+    transform: translateY(-75px) scale(1.1);
   }
 }
 
 .water-drop {
   position: absolute;
-  width: 7px;
-  height: 22px;
+  width: 6px;
+  height: 20px;
   border-radius: 99px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), #38bdf8);
   animation: rainFall 0.5s linear forwards;
@@ -281,11 +274,11 @@ body.is-sleeping .night-overlay {
 @keyframes rainFall {
   0% {
     opacity: 1;
-    transform: translateY(-75px);
+    transform: translateY(-70px);
   }
   100% {
     opacity: 0;
-    transform: translateY(175px);
+    transform: translateY(165px);
   }
 }
 
@@ -293,7 +286,7 @@ body.is-sleeping .night-overlay {
   position: absolute;
   border-radius: 50%;
   background: radial-gradient(circle at 32% 32%, #ffffff 10%, rgba(224, 242, 254, 0.85) 60%, rgba(125, 211, 252, 0.5) 100%);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   animation: bubblePopIn 0.25s ease-out forwards;
 }
 
@@ -304,29 +297,29 @@ body.is-sleeping .night-overlay {
 
 .bouncing-ball {
   position: absolute;
-  top: 10px;
-  font-size: 2.9rem;
+  top: 12px;
+  font-size: 2.6rem;
   opacity: 0;
   pointer-events: none;
   z-index: 26;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.28));
 }
 
 .bouncing-ball.active {
   opacity: 1;
-  animation: ballHeader 0.55s ease-in-out infinite alternate;
+  animation: ballHeader 0.65s ease-in-out infinite alternate;
 }
 
 @keyframes ballHeader {
-  0% { transform: translateY(-65px) rotate(0deg); }
-  100% { transform: translateY(35px) rotate(180deg); }
+  0% { transform: translateY(-55px) rotate(0deg); }
+  100% { transform: translateY(28px) rotate(180deg); }
 }
 
-/* ================= ITENS SOLTOS NA PARTE INFERIOR (ZERO CAIXAS!) ================= */
+/* ================= ITENS NA PROPORÇÃO ÁUREA INFERIOR ================= */
 .pou-bottom-items {
   position: relative;
   z-index: 30;
-  padding: 0 14px 28px;
+  padding: 0 14px 32px;
   display: flex;
   justify-content: center;
   min-height: 110px;
@@ -343,47 +336,60 @@ body.is-sleeping .night-overlay {
 
 .room-items.active {
   display: flex;
-  animation: itemsPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: itemsPop 0.28s ease-out;
 }
 
 @keyframes itemsPop {
   from {
     opacity: 0;
-    transform: translateY(18px) scale(0.9);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
-/* Cada item é apenas o objeto flutuando sobre a bancada, sem botão/caixa em volta */
 .free-item {
   background: none;
   border: none;
-  cursor: pointer;
+  cursor: grab;
   padding: 4px;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  touch-action: none;
+  transition: transform 0.18s ease, opacity 0.18s ease;
 }
 
 .free-item:hover {
-  transform: translateY(-8px) scale(1.22);
+  transform: translateY(-5px) scale(1.14);
 }
 
-.free-item:active {
-  transform: scale(0.88);
+.free-item.dragging-source {
+  opacity: 0.35;
+  transform: scale(0.9);
 }
 
 .free-emoji {
-  font-size: 2.65rem;
+  font-size: 2.55rem;
   display: block;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 5px 9px rgba(0, 0, 0, 0.32));
+  pointer-events: none;
 }
 
-/* Closet Items Soltos Sem Caixas */
+/* Clone do Alimento sendo Arrastado até a Boca do Bis */
+.drag-food-ghost {
+  position: fixed;
+  z-index: 9999;
+  font-size: 3rem;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1.15);
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.38));
+  transition: transform 0.08s ease-out;
+}
+
+/* Closet Items */
 .closet-free-items {
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .free-swatches {
@@ -392,19 +398,19 @@ body.is-sleeping .night-overlay {
 }
 
 .color-drop {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.32);
+  transition: transform 0.18s ease;
 }
 
 .color-drop.active,
 .color-drop:hover {
-  transform: scale(1.28);
-  box-shadow: 0 0 0 3px #ffffff, 0 6px 14px rgba(0, 0, 0, 0.4);
+  transform: scale(1.22);
+  box-shadow: 0 0 0 2.5px #ffffff, 0 5px 12px rgba(0, 0, 0, 0.35);
 }
 
 .free-accessories {
@@ -415,28 +421,13 @@ body.is-sleeping .night-overlay {
 .free-acc {
   background: none;
   border: none;
-  font-size: 1.9rem;
+  font-size: 1.85rem;
   cursor: pointer;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.32));
+  transition: transform 0.18s ease;
 }
 
 .free-acc.active,
 .free-acc:hover {
-  transform: translateY(-5px) scale(1.25);
-}
-
-.free-name-input {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: #ffffff;
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 0.95rem;
-  padding: 6px 16px;
-  border-radius: 99px;
-  text-align: center;
-  width: 150px;
-  outline: none;
-  backdrop-filter: blur(6px);
+  transform: translateY(-4px) scale(1.18);
 }
