@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Bis Virtual — Crie seu Polvo Roxo!</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="bubbles" id="bubbles"></div>
+
+  <header class="game-header">
+    <h1>🐙 Meu Bis Virtual</h1>
+    <p>Crie, personalize e cuide do seu polvo roxo!</p>
+  </header>
+
+  <main class="game-container">
+    <!-- Painel do Bis (Visual + Status) -->
+    <section class="stage-card">
+      <div class="bis-name-badge">
+        <span id="bis-display-name">Bis</span>
+        <span class="mood-tag" id="bis-mood">Feliz ✨</span>
+      </div>
+
+      <div class="aquarium" id="aquarium" title="Clique no Bis para fazer carinho!">
+        <div class="floating-heart" id="floating-effect">💜</div>
+
+        <!-- SVG do Polvo Roxo (Bis) -->
+        <svg class="bis-character" id="bis-svg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+          <!-- Sombra no fundo -->
+          <ellipse cx="120" cy="215" rx="65" ry="12" fill="rgba(0, 0, 0, 0.25)" />
+
+          <!-- Tentáculos de trás -->
+          <g id="bis-back-tentacles" fill="#6b21a8">
+            <path d="M65 155 C35 165, 25 195, 50 202 C65 206, 75 185, 85 170 Z" />
+            <path d="M175 155 C205 165, 215 195, 190 202 C175 206, 165 185, 155 170 Z" />
+          </g>
+
+          <!-- Tentáculos da frente -->
+          <g id="bis-tentacles" fill="#9333ea">
+            <path class="tentacle t1" d="M75 150 C50 175, 45 205, 70 208 C88 210, 92 185, 98 165 Z" />
+            <path class="tentacle t2" d="M102 155 C92 185, 92 212, 112 212 C125 212, 122 185, 120 165 Z" />
+            <path class="tentacle t3" d="M138 155 C148 185, 148 212, 128 212 C115 212, 118 185, 120 165 Z" />
+            <path class="tentacle t4" d="M165 150 C190 175, 195 205, 170 208 C152 210, 148 185, 142 165 Z" />
+          </g>
+
+          <!-- Ventosas -->
+          <g fill="#d8b4fe" opacity="0.85">
+            <circle cx="62" cy="195" r="5" />
+            <circle cx="72" cy="201" r="4" />
+            <circle cx="105" cy="203" r="5" />
+            <circle cx="135" cy="203" r="5" />
+            <circle cx="178" cy="195" r="5" />
+            <circle cx="168" cy="201" r="4" />
+          </g>
+
+          <!-- Cabeça / Corpo do Bis -->
+          <path id="bis-body" d="M60 115 C60 60, 180 60, 180 115 C185 150, 165 170, 120 170 C75 170, 55 150, 60 115 Z" fill="#9333ea" />
+
+          <!-- Brilho na cabeça -->
+          <ellipse cx="92" cy="88" rx="18" ry="10" transform="rotate(-25 92 88)" fill="rgba(255, 255, 255, 0.28)" />
+
+          <!-- Bochechas -->
+          <ellipse cx="78" cy="132" rx="10" ry="6" fill="#f472b6" opacity="0.65" />
+          <ellipse cx="162" cy="132" rx="10" ry="6" fill="#f472b6" opacity="0.65" />
+
+          <!-- Olhos -->
+          <g id="bis-eyes">
+            <!-- Olho esquerdo -->
+            <circle cx="95" cy="120" r="12" fill="#1e1b4b" />
+            <circle class="eye-shine" cx="91" cy="115" r="4.5" fill="#ffffff" />
+            <circle class="eye-shine-sm" cx="99" cy="124" r="2" fill="#ffffff" />
+            <!-- Olho direito -->
+            <circle cx="145" cy="120" r="12" fill="#1e1b4b" />
+            <circle class="eye-shine" cx="141" cy="115" r="4.5" fill="#ffffff" />
+            <circle class="eye-shine-sm" cx="149" cy="124" r="2" fill="#ffffff" />
+          </g>
+
+          <!-- Boca -->
+          <path id="bis-mouth" d="M110 134 Q120 145 130 134" stroke="#1e1b4b" stroke-width="4" stroke-linecap="round" fill="none" />
+
+          <!-- Acessórios no topo -->
+          <g id="bis-accessory">
+            <!-- Preenchido via JS -->
+          </g>
+        </svg>
+      </div>
+
+      <!-- Barras de Status -->
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>🍤 Fome</span>
+            <span id="stat-hunger-val">85%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill hunger" id="bar-hunger" style="width: 85%"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>🎾 Alegria</span>
+            <span id="stat-happy-val">90%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill happy" id="bar-happy" style="width: 90%"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>💤 Energia</span>
+            <span id="stat-energy-val">80%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill energy" id="bar-energy" style="width: 80%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botões de Cuidado -->
+      <div class="care-actions">
+        <button class="btn-action" id="btn-feed">🍤 Alimentar</button>
+        <button class="btn-action" id="btn-play">🫧 Brincar</button>
+        <button class="btn-action" id="btn-sleep">🌙 Dormir</button>
+      </div>
+    </section>
+
+    <!-- Painel de Customização (Crie seu Bis) -->
+    <section class="customizer-card">
+      <h2>🎨 Crie seu Bis</h2>
+
+      <div class="form-group">
+        <label for="input-name">Nome do seu Bis</label>
+        <input type="text" id="input-name" maxlength="18" value="Bis" placeholder="Digite o nome..." />
+      </div>
+
+      <div class="form-group">
+        <label>Tom de Roxo</label>
+        <div class="color-options" id="color-options">
+          <button class="color-swatch active" data-primary="#9333ea" data-secondary="#6b21a8" style="background: #9333ea" title="Roxo Clássico"></button>
+          <button class="color-swatch" data-primary="#a855f7" data-secondary="#7e22ce" style="background: #a855f7" title="Lavanda Neon"></button>
+          <button class="color-swatch" data-primary="#7c3aed" data-secondary="#5b21b6" style="background: #7c3aed" title="Violeta Profundo"></button>
+          <button class="color-swatch" data-primary="#c026d3" data-secondary="#86198f" style="background: #c026d3" title="Roxo Fúcsia"></button>
+          <button class="color-swatch" data-primary="#4f46e5" data-secondary="#3730a3" style="background: #4f46e5" title="Índigo Abissal"></button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Acessório</label>
+        <div class="pill-options" id="accessory-options">
+          <button class="pill-btn active" data-acc="none">Nenhum</button>
+          <button class="pill-btn" data-acc="crown">👑 Coroa</button>
+          <button class="pill-btn" data-acc="bow">🎀 Laço</button>
+          <button class="pill-btn" data-acc="hat">🎩 Cartola</button>
+          <button class="pill-btn" data-acc="flower">🌸 Flor</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Expressão</label>
+        <div class="pill-options" id="expression-options">
+          <button class="pill-btn active" data-exp="happy">😊 Feliz</button>
+          <button class="pill-btn" data-exp="surprised">😮 Surpreso</button>
+          <button class="pill-btn" data-exp="wink">😉 Piscando</button>
+          <button class="pill-btn" data-exp="cool">😎 Estiloso</button>
+        </div>
+      </div>
+
+      <div class="customizer-footer">
+        <button class="btn-secondary" id="btn-random">🎲 Bis Aleatório</button>
+        <button class="btn-primary" id="btn-save">💾 Salvar Bis</button>
+      </div>
+      <p class="save-feedback" id="save-feedback"></p>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

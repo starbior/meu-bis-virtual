@@ -1,0 +1,15 @@
+# Logs e arquivos temporários
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Ambientes e editores
+.vscode/
+.idea/
+.env
+.env.local
+
+# Dependências / Build (caso adicione futuramente)
+node_modules/
+dist/
