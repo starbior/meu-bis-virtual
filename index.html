@@ -3,760 +3,691 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Bis! — Meu Polvo Roxo</title>
+  <title>Bis</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="game-viewport" id="app-viewport">
+  <!-- Moldura Proporção de Celular (9:16 fixo mesmo no PC, sem "caixa dentro de caixa") -->
+  <div class="phone-screen" id="phone-screen">
 
-    <!-- ================= HUD SUPERIOR ESTILO POU CLÁSSICO CARTOON ================= -->
-    <header class="pou-header">
-      <div class="status-cluster">
-        <!-- Fome -->
-        <div class="pou-stat" title="Fome">
-          <div class="stat-badge badge-food">
-            <svg viewBox="0 0 36 36"><path d="M8 22 C8 13, 28 13, 28 22 Z" fill="#f59e0b" stroke="#231138" stroke-width="3"/><rect x="6" y="21" width="24" height="5" rx="2.5" fill="#22c55e" stroke="#231138" stroke-width="2.5"/><path d="M9 25 L27 25 C27 30, 9 30, 9 25 Z" fill="#d97706" stroke="#231138" stroke-width="3"/></svg>
-          </div>
-          <div class="stat-meter"><div class="stat-fill" id="hud-hunger"></div></div>
-        </div>
+    <!-- ================= FUNDO DESLIZANTE (5 CÔMODOS MAXIMALISTAS SEM CONTORNO, ORGÂNICOS E RICOS) ================= -->
+    <div class="rooms-carousel" id="rooms-track">
 
-        <!-- Limpeza -->
-        <div class="pou-stat" title="Banho / Limpeza">
-          <div class="stat-badge badge-clean">
-            <svg viewBox="0 0 36 36"><rect x="7" y="13" width="22" height="14" rx="7" fill="#f472b6" stroke="#231138" stroke-width="3"/><circle cx="13" cy="9" r="4" fill="#bae6fd" stroke="#231138" stroke-width="2.5"/><circle cx="22" cy="8" r="3" fill="#bae6fd" stroke="#231138" stroke-width="2.5"/></svg>
-          </div>
-          <div class="stat-meter"><div class="stat-fill" id="hud-clean"></div></div>
-        </div>
-
-        <!-- Diversão -->
-        <div class="pou-stat" title="Diversão">
-          <div class="stat-badge badge-fun">
-            <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="11" fill="#facc15" stroke="#231138" stroke-width="3"/><circle cx="14" cy="15" r="2" fill="#231138"/><circle cx="22" cy="15" r="2" fill="#231138"/><path d="M13 20 Q18 25 23 20" fill="none" stroke="#231138" stroke-width="2.8" stroke-linecap="round"/></svg>
-          </div>
-          <div class="stat-meter"><div class="stat-fill" id="hud-fun"></div></div>
-        </div>
-
-        <!-- Energia -->
-        <div class="pou-stat" title="Energia">
-          <div class="stat-badge badge-energy">
-            <svg viewBox="0 0 36 36"><polygon points="20,5 9,20 18,20 15,31 27,16 18,16" fill="#38bdf8" stroke="#231138" stroke-width="3" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="stat-meter"><div class="stat-fill" id="hud-energy"></div></div>
-        </div>
-      </div>
-
-      <!-- Navegador de Salas Estilo Placa do Pou -->
-      <div class="room-banner">
-        <button class="chunky-arrow" id="btn-prev-room" aria-label="Sala anterior">◀</button>
-        <div class="room-sign">
-          <span class="room-title" id="room-title">COZINHA</span>
-          <div class="room-dots" id="room-dots"></div>
-        </div>
-        <button class="chunky-arrow" id="btn-next-room" aria-label="Próxima sala">▶</button>
-      </div>
-
-      <!-- Moedas -->
-      <div class="coin-counter" title="Moedas">
-        <div class="coin-icon">$</div>
-        <span id="hud-coins">120</span>
-      </div>
-    </header>
-
-    <!-- ================= CENÁRIOS MAXIMALISTAS ILUSTRADOS (SCROLL HORIZONTAL) ================= -->
-    <div class="rooms-track" id="rooms-track">
-
-      <!-- ================= SALA 0: COZINHA MAXIMALISTA ================= -->
-      <section class="room-slide" data-room="0">
-        <svg class="room-bg-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <!-- 0. COZINHA -->
+      <section class="room-scene scene-kitchen">
+        <svg class="scene-art" viewBox="0 0 430 900" preserveAspectRatio="xMidYMid slice">
           <defs>
-            <!-- Papel de parede listrado retrô quentinho -->
-            <pattern id="kitchenWallpaper" width="60" height="60" patternUnits="userSpaceOnUse">
-              <rect width="60" height="60" fill="#fff3d1"/>
-              <rect x="0" width="30" height="60" fill="#ffe4a3"/>
-              <circle cx="15" cy="15" r="3" fill="#f59e0b" opacity="0.35"/>
-              <circle cx="45" cy="45" r="3" fill="#ef4444" opacity="0.35"/>
+            <linearGradient id="kWall" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffedd5"/>
+              <stop offset="65%" stop-color="#fed7aa"/>
+              <stop offset="100%" stop-color="#fdba74"/>
+            </linearGradient>
+            <linearGradient id="kSunlight" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+              <stop offset="100%" stop-color="#fef08a" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="kCounter" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#fff1f2"/>
+              <stop offset="15%" stop-color="#ffe4e6"/>
+              <stop offset="15.5%" stop-color="#f43f5e"/>
+              <stop offset="22%" stop-color="#e11d48"/>
+              <stop offset="22.5%" stop-color="#9f1239"/>
+              <stop offset="100%" stop-color="#4c0519"/>
+            </linearGradient>
+            <pattern id="kTileSoft" width="54" height="54" patternUnits="userSpaceOnUse">
+              <rect width="54" height="54" fill="#fff7ed"/>
+              <rect x="2" y="2" width="50" height="50" rx="10" fill="#ffedd5"/>
+              <circle cx="27" cy="27" r="6" fill="#fdba74" opacity="0.35"/>
             </pattern>
-            <!-- Azulejo colorido de cozinha -->
-            <pattern id="kitchenBacksplash" width="48" height="48" patternUnits="userSpaceOnUse">
-              <rect width="48" height="48" fill="#fef3c7" stroke="#231138" stroke-width="2"/>
-              <polygon points="24,6 42,24 24,42 6,24" fill="#38bdf8" opacity="0.35"/>
-            </pattern>
-            <!-- Piso quadriculado clássico de lanchonete/cozinha -->
-            <pattern id="checkerFloor" width="120" height="80" patternUnits="userSpaceOnUse">
-              <rect width="60" height="40" fill="#231138"/>
-              <rect x="60" width="60" height="40" fill="#fffbeb"/>
-              <rect y="40" width="60" height="40" fill="#fffbeb"/>
-              <rect x="60" y="40" width="60" height="40" fill="#231138"/>
+            <pattern id="kDamask" width="70" height="70" patternUnits="userSpaceOnUse">
+              <circle cx="35" cy="35" r="26" fill="#fb923c" opacity="0.1"/>
+              <circle cx="0" cy="0" r="18" fill="#f97316" opacity="0.08"/>
+              <circle cx="70" cy="70" r="18" fill="#f97316" opacity="0.08"/>
             </pattern>
           </defs>
 
-          <!-- Parede de fundo -->
-          <rect width="1440" height="620" fill="url(#kitchenWallpaper)" />
-          <!-- Faixa de azulejos -->
-          <rect y="360" width="1440" height="260" fill="url(#kitchenBacksplash)" stroke="#231138" stroke-width="5"/>
+          <!-- Parede com textura suave de arabescos sem contorno -->
+          <rect width="430" height="640" fill="url(#kWall)"/>
+          <rect width="430" height="640" fill="url(#kDamask)"/>
 
-          <!-- Janela Grande com Paisagem, Cortinas de Bolinhas e Vasos -->
-          <g transform="translate(80, 70)">
-            <rect x="0" y="0" width="290" height="260" rx="18" fill="#7dd3fc" stroke="#231138" stroke-width="6"/>
-            <!-- Sol e nuvens lá fora -->
-            <circle cx="70" cy="65" r="34" fill="#fde047" stroke="#231138" stroke-width="4"/>
-            <path d="M130 95 C130 75, 165 75, 175 88 C190 72, 225 78, 225 98 C240 100, 240 120, 220 120 L130 120 C115 120, 115 100, 130 95 Z" fill="#ffffff" stroke="#231138" stroke-width="4"/>
-            <!-- Colinas verdes -->
-            <path d="M4 210 Q90 155 170 210 T286 200 L286 256 L4 256 Z" fill="#4ade80" stroke="#231138" stroke-width="4"/>
-            <!-- Grade da janela -->
-            <line x1="145" y1="0" x2="145" y2="260" stroke="#fff" stroke-width="8"/>
-            <line x1="145" y1="0" x2="145" y2="260" stroke="#231138" stroke-width="4"/>
-            <line x1="0" y1="135" x2="290" y2="135" stroke="#fff" stroke-width="8"/>
-            <line x1="0" y1="135" x2="290" y2="135" stroke="#231138" stroke-width="4"/>
-            <!-- Cortinas vermelhas -->
-            <path d="M-10 -10 L65 -10 C55 90, 45 140, 10 250 L-10 250 Z" fill="#fb7185" stroke="#231138" stroke-width="5"/>
-            <path d="M300 -10 L225 -10 C235 90, 245 140, 280 250 L300 250 Z" fill="#fb7185" stroke="#231138" stroke-width="5"/>
-            <rect x="-20" y="-16" width="330" height="22" rx="10" fill="#9a3412" stroke="#231138" stroke-width="5"/>
-            <!-- Peitoril com vasos de planta -->
-            <rect x="-15" y="252" width="320" height="22" rx="6" fill="#fed7aa" stroke="#231138" stroke-width="5"/>
-            <polygon points="85,252 95,215 130,215 140,252" fill="#ea580c" stroke="#231138" stroke-width="4"/>
-            <circle cx="105" cy="202" r="16" fill="#22c55e" stroke="#231138" stroke-width="4"/>
-            <circle cx="125" cy="200" r="14" fill="#16a34a" stroke="#231138" stroke-width="4"/>
-            <circle cx="115" cy="190" r="10" fill="#fbbf24" stroke="#231138" stroke-width="3"/>
+          <!-- Azulejos suaves ao fundo -->
+          <rect y="320" width="430" height="300" fill="url(#kTileSoft)" opacity="0.8"/>
+
+          <!-- Janela ensolarada à esquerda com céu, nuvens e plantas pendentes -->
+          <g transform="translate(-15, 95)">
+            <rect x="0" y="0" width="165" height="230" rx="82" fill="#38bdf8"/>
+            <circle cx="95" cy="65" r="38" fill="#fef08a" opacity="0.9"/>
+            <circle cx="95" cy="65" r="58" fill="#fef08a" opacity="0.28"/>
+            <ellipse cx="65" cy="145" rx="55" ry="24" fill="#ffffff" opacity="0.85"/>
+            <ellipse cx="120" cy="160" rx="45" ry="20" fill="#ffffff" opacity="0.9"/>
+            <path d="M0 190 Q80 165 165 195 L165 230 L0 230 Z" fill="#34d399"/>
+            <!-- Folhagens orgânicas sem contorno caindo sobre a janela -->
+            <ellipse cx="35" cy="12" rx="28" ry="16" transform="rotate(-20 35 12)" fill="#10b981"/>
+            <ellipse cx="75" cy="8" rx="32" ry="15" transform="rotate(12 75 8)" fill="#059669"/>
+            <ellipse cx="125" cy="18" rx="26" ry="14" transform="rotate(30 125 18)" fill="#34d399"/>
+            <circle cx="145" cy="48" r="12" fill="#10b981"/>
+            <circle cx="152" cy="75" r="10" fill="#34d399"/>
+            <circle cx="148" cy="100" r="8" fill="#059669"/>
           </g>
 
-          <!-- Geladeira Retrô Cheia de Ímãs, Stickers e Desenhos do Bis -->
-          <g transform="translate(415, 130)">
-            <rect x="0" y="0" width="235" height="490" rx="28" fill="#2dd4bf" stroke="#231138" stroke-width="6"/>
-            <line x1="0" y1="175" x2="235" y2="175" stroke="#231138" stroke-width="6"/>
-            <!-- Puxadores cromados -->
-            <rect x="195" y="95" width="16" height="55" rx="8" fill="#f8fafc" stroke="#231138" stroke-width="4"/>
-            <rect x="195" y="210" width="16" height="80" rx="8" fill="#f8fafc" stroke="#231138" stroke-width="4"/>
-            <!-- Desenho colado na geladeira -->
-            <rect x="35" y="45" width="95" height="85" transform="rotate(-6 80 80)" fill="#ffffff" stroke="#231138" stroke-width="4"/>
-            <circle cx="82" cy="85" r="22" fill="#7c3aed" stroke="#231138" stroke-width="3"/>
-            <circle cx="75" cy="82" r="6" fill="#fff"/><circle cx="89" cy="82" r="6" fill="#fff"/>
-            <circle cx="38" cy="48" r="9" fill="#ef4444" stroke="#231138" stroke-width="3"/>
-            <!-- Notas e ímãs -->
-            <rect x="50" y="220" width="70" height="65" transform="rotate(8 85 250)" fill="#fde047" stroke="#231138" stroke-width="4"/>
-            <circle cx="150" cy="240" r="14" fill="#f43f5e" stroke="#231138" stroke-width="4"/>
-            <polygon points="150,310 165,340 135,340" fill="#a855f7" stroke="#231138" stroke-width="4"/>
-            <!-- Cesta de frutas em cima da geladeira -->
-            <path d="M55 0 C55 -40, 175 -40, 175 0 Z" fill="#f59e0b" stroke="#231138" stroke-width="5"/>
-            <circle cx="95" cy="-28" r="16" fill="#ef4444" stroke="#231138" stroke-width="4"/>
-            <circle cx="125" cy="-32" r="18" fill="#facc15" stroke="#231138" stroke-width="4"/>
-            <circle cx="148" cy="-24" r="15" fill="#a855f7" stroke="#231138" stroke-width="4"/>
+          <!-- Prateleiras quentes cheias de potes translúcidos, frutas, livros de receita e luzes -->
+          <g transform="translate(185, 115)">
+            <!-- Prateleira superior -->
+            <rect x="0" y="75" width="230" height="14" rx="7" fill="#d97706" opacity="0.85"/>
+            <!-- Pote de vidro com biscoitos -->
+            <rect x="18" y="18" width="44" height="57" rx="16" fill="#ffffff" opacity="0.65"/>
+            <circle cx="34" cy="56" r="9" fill="#d97706"/>
+            <circle cx="48" cy="52" r="8" fill="#b45309"/>
+            <circle cx="38" cy="40" r="9" fill="#f59e0b"/>
+            <rect x="24" y="10" width="32" height="10" rx="5" fill="#f43f5e"/>
+            <!-- Pote de geleia roxa -->
+            <rect x="76" y="28" width="38" height="47" rx="14" fill="#a855f7" opacity="0.85"/>
+            <rect x="82" y="20" width="26" height="10" rx="5" fill="#fde047"/>
+            <!-- Bule de chá fumegante -->
+            <ellipse cx="155" cy="52" rx="28" ry="22" fill="#fb7185"/>
+            <path d="M178 48 Q198 35 190 58" fill="none" stroke="#fb7185" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="155" cy="28" r="7" fill="#fda4af"/>
+            <!-- Vapor suave -->
+            <path d="M185 20 Q192 5 182 -8" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+
+            <!-- Prateleira inferior -->
+            <rect x="20" y="185" width="210" height="14" rx="7" fill="#d97706" opacity="0.85"/>
+            <!-- Tigela de frutas -->
+            <circle cx="65" cy="155" r="16" fill="#ef4444"/>
+            <circle cx="88" cy="152" r="17" fill="#facc15"/>
+            <circle cx="105" cy="158" r="14" fill="#a855f7"/>
+            <path d="M40 160 C45 190, 125 190, 130 160 Z" fill="#38bdf8"/>
+            <!-- Quadros e plantas -->
+            <rect x="148" y="118" width="52" height="67" rx="12" fill="#fef08a"/>
+            <circle cx="174" cy="150" r="16" fill="#fb7185"/>
           </g>
 
-          <!-- Barra de Panelas de Cobre e Utensílios Pendurados no Centro-Topo -->
-          <g transform="translate(680, 55)">
-            <rect x="0" y="0" width="320" height="12" rx="6" fill="#334155" stroke="#231138" stroke-width="4"/>
-            <!-- Frigideira -->
-            <line x1="60" y1="12" x2="60" y2="65" stroke="#231138" stroke-width="5"/>
-            <circle cx="60" cy="95" r="36" fill="#ea580c" stroke="#231138" stroke-width="5"/>
-            <circle cx="60" cy="95" r="24" fill="#fb923c" stroke="#231138" stroke-width="3"/>
-            <!-- Concha e Espátula -->
-            <line x1="145" y1="12" x2="145" y2="95" stroke="#231138" stroke-width="5"/>
-            <rect x="130" y="95" width="30" height="26" rx="4" fill="#94a3b8" stroke="#231138" stroke-width="4"/>
-            <!-- Panela de Cobre -->
-            <line x1="235" y1="12" x2="235" y2="55" stroke="#231138" stroke-width="5"/>
-            <rect x="195" y="55" width="80" height="58" rx="12" fill="#f97316" stroke="#231138" stroke-width="5"/>
+          <!-- Geladeira pastel suave com luzes e imãs sem contorno -->
+          <g transform="translate(25, 345)">
+            <rect x="0" y="0" width="145" height="270" rx="28" fill="#5eead4"/>
+            <rect x="12" y="12" width="121" height="95" rx="20" fill="#99f6e4" opacity="0.6"/>
+            <rect x="115" y="45" width="8" height="36" rx="4" fill="#ffffff"/>
+            <rect x="115" y="135" width="8" height="52" rx="4" fill="#ffffff"/>
+            <circle cx="45" cy="52" r="12" fill="#f43f5e" opacity="0.85"/>
+            <rect x="35" y="145" width="48" height="42" rx="6" transform="rotate(-8 55 165)" fill="#fef08a"/>
           </g>
 
-          <!-- Prateleiras de Madeira, Potes de Biscoito, Temperos, Relógio e Plantas à Direita -->
-          <g transform="translate(1030, 80)">
-            <!-- Relógio de parede de Gato/Polvo -->
-            <circle cx="70" cy="45" r="46" fill="#ffffff" stroke="#231138" stroke-width="6"/>
-            <circle cx="70" cy="45" r="36" fill="#fef08a" stroke="#231138" stroke-width="3"/>
-            <line x1="70" y1="45" x2="70" y2="22" stroke="#231138" stroke-width="5" stroke-linecap="round"/>
-            <line x1="70" y1="45" x2="90" y2="45" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+          <!-- Feixe de luz solar suave atravessando a cozinha -->
+          <polygon points="0,90 180,90 430,580 0,580" fill="url(#kSunlight)"/>
 
-            <!-- Prateleira 1 -->
-            <rect x="0" y="160" width="340" height="20" rx="6" fill="#b45309" stroke="#231138" stroke-width="5"/>
-            <!-- Potes coloridos -->
-            <rect x="25" y="95" width="56" height="65" rx="12" fill="#c084fc" stroke="#231138" stroke-width="4"/>
-            <rect x="33" y="83" width="40" height="14" rx="5" fill="#ef4444" stroke="#231138" stroke-width="4"/>
-            <rect x="100" y="105" width="52" height="55" rx="10" fill="#4ade80" stroke="#231138" stroke-width="4"/>
-            <rect x="170" y="85" width="64" height="75" rx="14" fill="#fbbf24" stroke="#231138" stroke-width="4"/>
-            <text x="186" y="130" font-family="Fredoka" font-size="18" font-weight="700" fill="#231138">BIS</text>
-            <!-- Planta Jiboia pendurada -->
-            <polygon points="260,160 270,115 315,115 325,160" fill="#e11d48" stroke="#231138" stroke-width="4"/>
-            <circle cx="280" cy="110" r="15" fill="#22c55e" stroke="#231138" stroke-width="4"/>
-            <circle cx="305" cy="108" r="16" fill="#16a34a" stroke="#231138" stroke-width="4"/>
-            <circle cx="320" cy="145" r="12" fill="#22c55e" stroke="#231138" stroke-width="4"/>
-            <circle cx="315" cy="175" r="11" fill="#16a34a" stroke="#231138" stroke-width="4"/>
-            <circle cx="322" cy="202" r="10" fill="#22c55e" stroke="#231138" stroke-width="4"/>
+          <!-- Varal de luzes quentes no topo -->
+          <circle cx="55" cy="55" r="14" fill="#fef08a" opacity="0.45"/>
+          <circle cx="55" cy="55" r="6" fill="#ffffff"/>
+          <circle cx="145" cy="72" r="14" fill="#fef08a" opacity="0.45"/>
+          <circle cx="145" cy="72" r="6" fill="#ffffff"/>
+          <circle cx="245" cy="70" r="14" fill="#fef08a" opacity="0.45"/>
+          <circle cx="245" cy="70" r="6" fill="#ffffff"/>
+          <circle cx="345" cy="52" r="14" fill="#fef08a" opacity="0.45"/>
+          <circle cx="345" cy="52" r="6" fill="#ffffff"/>
 
-            <!-- Balcão com Fogão e Bule apitando -->
-            <rect x="-60" y="340" width="410" height="200" fill="#fb7185" stroke="#231138" stroke-width="6"/>
-            <rect x="-70" y="325" width="430" height="24" rx="8" fill="#fef3c7" stroke="#231138" stroke-width="5"/>
-            <!-- Forno -->
-            <rect x="40" y="380" width="180" height="130" rx="14" fill="#334155" stroke="#231138" stroke-width="5"/>
-            <rect x="60" y="405" width="140" height="80" rx="8" fill="#f97316" stroke="#231138" stroke-width="4"/>
-            <!-- Panela no fogão -->
-            <rect x="75" y="265" width="110" height="60" rx="10" fill="#a855f7" stroke="#231138" stroke-width="5"/>
-            <ellipse cx="130" cy="265" rx="58" ry="12" fill="#c084fc" stroke="#231138" stroke-width="5"/>
-          </g>
-
-          <!-- Piso Quadriculado -->
-          <rect y="620" width="1440" height="280" fill="url(#checkerFloor)" stroke="#231138" stroke-width="6"/>
-
-          <!-- Mesa / Bancada de Refeição em Primeiro Plano onde o Bis Fica! -->
-          <g transform="translate(360, 585)">
-            <ellipse cx="360" cy="95" rx="340" ry="78" fill="#d97706" stroke="#231138" stroke-width="7"/>
-            <ellipse cx="360" cy="82" rx="325" ry="68" fill="#fbbf24" stroke="#231138" stroke-width="5"/>
-            <!-- Toalha de mesa xadrez sob o Bis -->
-            <ellipse cx="360" cy="80" rx="220" ry="46" fill="#f43f5e" stroke="#231138" stroke-width="5"/>
-            <ellipse cx="360" cy="78" rx="190" ry="38" fill="#ffffff" stroke="#231138" stroke-width="4"/>
-          </g>
+          <!-- Bancada / Mesa da Cozinha onde o Bis fica apoiado -->
+          <path d="M-20 575 Q215 545 450 575 L450 900 L-20 900 Z" fill="url(#kCounter)"/>
+          <!-- Toalha suave sob o Bis -->
+          <ellipse cx="215" cy="605" rx="165" ry="36" fill="#ffffff" opacity="0.85"/>
+          <ellipse cx="215" cy="605" rx="142" ry="28" fill="#fecdd3" opacity="0.65"/>
         </svg>
       </section>
 
-      <!-- ================= SALA 1: BANHEIRO MAXIMALISTA ================= -->
-      <section class="room-slide" data-room="1">
-        <svg class="room-bg-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <!-- 1. BANHEIRO -->
+      <section class="room-scene scene-bathroom">
+        <svg class="scene-art" viewBox="0 0 430 900" preserveAspectRatio="xMidYMid slice">
           <defs>
-            <pattern id="bathTiles" width="64" height="64" patternUnits="userSpaceOnUse">
-              <rect width="64" height="64" fill="#67e8f9" stroke="#231138" stroke-width="3"/>
-              <rect x="6" y="6" width="22" height="22" rx="4" fill="#a5f3fc"/>
-              <rect x="36" y="36" width="22" height="22" rx="4" fill="#22d3ee"/>
-            </pattern>
-            <pattern id="bathFloorHex" width="70" height="50" patternUnits="userSpaceOnUse">
-              <rect width="70" height="50" fill="#f472b6" stroke="#231138" stroke-width="3"/>
-              <circle cx="35" cy="25" r="14" fill="#fbcfe8" stroke="#231138" stroke-width="3"/>
+            <linearGradient id="bWall" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#cffafe"/>
+              <stop offset="55%" stop-color="#a5f3fc"/>
+              <stop offset="100%" stop-color="#67e8f9"/>
+            </linearGradient>
+            <linearGradient id="bFloor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#e0f2fe"/>
+              <stop offset="20%" stop-color="#7dd3fc"/>
+              <stop offset="100%" stop-color="#0284c7"/>
+            </linearGradient>
+            <pattern id="bMosaic" width="44" height="44" patternUnits="userSpaceOnUse">
+              <rect width="20" height="20" rx="5" fill="#ffffff" opacity="0.35"/>
+              <rect x="22" width="20" height="20" rx="5" fill="#22d3ee" opacity="0.2"/>
+              <rect y="22" width="20" height="20" rx="5" fill="#f472b6" opacity="0.15"/>
+              <rect x="22" y="22" width="20" height="20" rx="5" fill="#ffffff" opacity="0.45"/>
             </pattern>
           </defs>
 
-          <!-- Parede de azulejos -->
-          <rect width="1440" height="620" fill="url(#bathTiles)"/>
-          <!-- Faixa decorativa de ondas -->
-          <rect y="300" width="1440" height="28" fill="#f43f5e" stroke="#231138" stroke-width="5"/>
+          <rect width="430" height="640" fill="url(#bWall)"/>
+          <rect width="430" height="640" fill="url(#bMosaic)"/>
 
-          <!-- Espelho Redondo Ornado + Pia com Escovas, Poções e Perfumes (Esquerda) -->
-          <g transform="translate(110, 85)">
-            <rect x="20" y="0" width="230" height="280" rx="115" fill="#facc15" stroke="#231138" stroke-width="6"/>
-            <rect x="38" y="18" width="194" height="244" rx="97" fill="#e0f2fe" stroke="#231138" stroke-width="5"/>
-            <line x1="75" y1="80" x2="135" y2="40" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
-            <line x1="85" y1="115" x2="165" y2="55" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
-            <!-- Bancada da pia com cosméticos -->
-            <rect x="-10" y="265" width="290" height="22" rx="8" fill="#ffffff" stroke="#231138" stroke-width="5"/>
-            <!-- Copo com escova de dente -->
-            <rect x="25" y="220" width="32" height="45" rx="6" fill="#fb7185" stroke="#231138" stroke-width="4"/>
-            <line x1="35" y1="220" x2="22" y2="190" stroke="#22c55e" stroke-width="6" stroke-linecap="round"/>
-            <!-- Frasco de perfume de polvo -->
-            <circle cx="220" cy="242" r="22" fill="#c084fc" stroke="#231138" stroke-width="4"/>
-            <rect x="212" y="208" width="16" height="14" fill="#fde047" stroke="#231138" stroke-width="4"/>
+          <!-- Bolhas gigantes translúcidas flutuando no fundo do banheiro -->
+          <circle cx="65" cy="180" r="48" fill="#ffffff" opacity="0.28"/>
+          <circle cx="365" cy="140" r="62" fill="#ffffff" opacity="0.22"/>
+          <circle cx="330" cy="290" r="35" fill="#f472b6" opacity="0.18"/>
+          <circle cx="95" cy="390" r="28" fill="#ffffff" opacity="0.35"/>
+
+          <!-- Espelho Oval Iluminado com Plantas de Banheiro e Frascos Coloridos -->
+          <g transform="translate(30, 115)">
+            <ellipse cx="85" cy="115" rx="76" ry="102" fill="#fef08a" opacity="0.5"/>
+            <ellipse cx="85" cy="115" rx="66" ry="92" fill="#e0f2fe"/>
+            <path d="M45 65 L95 35 L115 45 L55 85 Z" fill="#ffffff" opacity="0.65"/>
+            <!-- Samambaia pendente -->
+            <circle cx="15" cy="35" r="20" fill="#34d399"/>
+            <circle cx="5" cy="65" r="16" fill="#10b981"/>
+            <circle cx="18" cy="92" r="14" fill="#6ee7b7"/>
+            <circle cx="8" cy="118" r="11" fill="#34d399"/>
           </g>
 
-          <!-- Chuveiro Dourado Retrô Centralizado Acima do Bis -->
-          <g transform="translate(650, 0)">
-            <path d="M70 0 L70 95" stroke="#facc15" stroke-width="16" stroke-linecap="round"/>
-            <path d="M70 0 L70 95" stroke="#231138" stroke-width="4"/>
-            <path d="M10 115 C10 75, 130 75, 130 115 Z" fill="#facc15" stroke="#231138" stroke-width="6"/>
-            <rect x="4" y="112" width="132" height="16" rx="8" fill="#fef08a" stroke="#231138" stroke-width="5"/>
+          <!-- Prateleiras de Spa com Toalhas Felpudas, Velas, Patinhos e Shampoos -->
+          <g transform="translate(225, 140)">
+            <rect x="0" y="88" width="185" height="12" rx="6" fill="#ffffff" opacity="0.8"/>
+            <!-- Toalhas enroladas -->
+            <rect x="15" y="55" width="58" height="32" rx="16" fill="#f472b6"/>
+            <rect x="22" y="30" width="46" height="26" rx="13" fill="#c084fc"/>
+            <!-- Frascos de shampoo e poções de banho -->
+            <rect x="92" y="34" width="28" height="54" rx="12" fill="#34d399"/>
+            <rect x="128" y="44" width="32" height="44" rx="14" fill="#fbbf24"/>
+            <!-- Patinho de borracha -->
+            <circle cx="155" cy="175" r="20" fill="#fde047"/>
+            <circle cx="168" cy="155" r="13" fill="#fde047"/>
+            <ellipse cx="180" cy="156" rx="7" ry="4" fill="#fb923c"/>
+            <rect x="15" y="192" width="170" height="12" rx="6" fill="#ffffff" opacity="0.8"/>
+            <!-- Conchas e estrelas do mar -->
+            <circle cx="55" cy="172" r="18" fill="#fb7185" opacity="0.85"/>
+            <circle cx="98" cy="176" r="14" fill="#a855f7" opacity="0.75"/>
           </g>
 
-          <!-- Máquina de Lavar Colorida + Toalhas + Prateleira com Patinhos de Borracha (Direita) -->
-          <g transform="translate(1010, 95)">
-            <!-- Prateleira -->
-            <rect x="0" y="95" width="320" height="18" rx="6" fill="#fef08a" stroke="#231138" stroke-width="5"/>
-            <!-- Patinho de Borracha -->
-            <circle cx="65" cy="70" r="22" fill="#facc15" stroke="#231138" stroke-width="4"/>
-            <circle cx="80" cy="48" r="14" fill="#facc15" stroke="#231138" stroke-width="4"/>
-            <polygon points="94,45 108,50 94,55" fill="#f97316" stroke="#231138" stroke-width="3"/>
-            <!-- Toalhas empilhadas -->
-            <rect x="140" y="65" width="90" height="30" rx="10" fill="#f43f5e" stroke="#231138" stroke-width="4"/>
-            <rect x="145" y="40" width="80" height="25" rx="8" fill="#a855f7" stroke="#231138" stroke-width="4"/>
-            <rect x="150" y="18" width="70" height="22" rx="8" fill="#4ade80" stroke="#231138" stroke-width="4"/>
+          <!-- Ducha de Spa no Topo Central -->
+          <rect x="208" y="0" width="14" height="72" fill="#cbd5e1"/>
+          <ellipse cx="215" cy="76" rx="52" ry="14" fill="#e2e8f0"/>
+          <ellipse cx="215" cy="80" rx="44" ry="8" fill="#94a3b8"/>
 
-            <!-- Máquina de lavar retrô -->
-            <rect x="30" y="235" width="250" height="290" rx="26" fill="#fb923c" stroke="#231138" stroke-width="6"/>
-            <rect x="30" y="235" width="250" height="55" rx="20" fill="#fed7aa" stroke="#231138" stroke-width="5"/>
-            <circle cx="75" cy="262" r="12" fill="#ef4444" stroke="#231138" stroke-width="4"/>
-            <circle cx="110" cy="262" r="12" fill="#22c55e" stroke="#231138" stroke-width="4"/>
-            <circle cx="155" cy="395" r="78" fill="#e2e8f0" stroke="#231138" stroke-width="6"/>
-            <circle cx="155" cy="395" r="56" fill="#38bdf8" stroke="#231138" stroke-width="5"/>
-            <path d="M102 395 Q130 370 155 395 T208 395 L208 445 L102 445 Z" fill="#0284c7" opacity="0.65"/>
-          </g>
-
-          <!-- Piso do Banheiro -->
-          <rect y="620" width="1440" height="280" fill="url(#bathFloorHex)" stroke="#231138" stroke-width="6"/>
-
-          <!-- Tapete Felpudo de Banho + Banheira Rasinha sob o Bis -->
-          <g transform="translate(380, 590)">
-            <ellipse cx="340" cy="80" rx="310" ry="66" fill="#fde047" stroke="#231138" stroke-width="6"/>
-            <ellipse cx="340" cy="80" rx="275" ry="52" fill="#ffffff" stroke="#231138" stroke-width="5"/>
-            <ellipse cx="340" cy="80" rx="235" ry="40" fill="#38bdf8" stroke="#231138" stroke-width="4"/>
-          </g>
+          <!-- Bancada / Banheira de Espuma sob o Bis -->
+          <path d="M-20 575 Q215 545 450 575 L450 900 L-20 900 Z" fill="url(#bFloor)"/>
+          <!-- Tapete de nuvem fofinho -->
+          <ellipse cx="215" cy="605" rx="170" ry="38" fill="#ffffff" opacity="0.9"/>
+          <ellipse cx="215" cy="605" rx="140" ry="28" fill="#bae6fd" opacity="0.7"/>
         </svg>
       </section>
 
-      <!-- ================= SALA 2: SALA DE JOGOS / FLIPERAMA MAXIMALISTA ================= -->
-      <section class="room-slide" data-room="2">
-        <svg class="room-bg-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <!-- 2. SALA DE JOGOS / ARCADE -->
+      <section class="room-scene scene-playroom">
+        <svg class="scene-art" viewBox="0 0 430 900" preserveAspectRatio="xMidYMid slice">
           <defs>
-            <pattern id="arcadeWall" width="90" height="90" patternUnits="userSpaceOnUse">
-              <rect width="90" height="90" fill="#3b0764"/>
-              <circle cx="25" cy="25" r="6" fill="#f43f5e" opacity="0.5"/>
-              <polygon points="65,15 78,38 52,38" fill="#facc15" opacity="0.45"/>
-              <rect x="20" y="60" width="16" height="16" transform="rotate(20 28 68)" fill="#22d3ee" opacity="0.45"/>
-            </pattern>
+            <linearGradient id="pWall" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2e1065"/>
+              <stop offset="60%" stop-color="#4c1d95"/>
+              <stop offset="100%" stop-color="#701a75"/>
+            </linearGradient>
+            <linearGradient id="pFloor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#a21caf"/>
+              <stop offset="25%" stop-color="#6b21a8"/>
+              <stop offset="100%" stop-color="#2e1065"/>
+            </linearGradient>
           </defs>
 
-          <!-- Parede Geek / Arcade Anos 90 -->
-          <rect width="1440" height="620" fill="url(#arcadeWall)"/>
+          <rect width="430" height="640" fill="url(#pWall)"/>
 
-          <!-- Bandeirinhas Coloridas no Teto -->
-          <g stroke="#231138" stroke-width="5">
-            <polygon points="80,0 140,85 200,0" fill="#facc15"/>
-            <polygon points="200,0 260,85 320,0" fill="#f43f5e"/>
-            <polygon points="320,0 380,85 440,0" fill="#22d3ee"/>
-            <polygon points="1000,0 1060,85 1120,0" fill="#4ade80"/>
-            <polygon points="1120,0 1180,85 1240,0" fill="#a855f7"/>
-            <polygon points="1240,0 1300,85 1360,0" fill="#fb923c"/>
+          <!-- Brilhos bokeh coloridos e formas flutuantes de festa/jogo -->
+          <circle cx="70" cy="130" r="65" fill="#f43f5e" opacity="0.18"/>
+          <circle cx="350" cy="180" r="85" fill="#38bdf8" opacity="0.16"/>
+          <circle cx="210" cy="280" r="95" fill="#facc15" opacity="0.12"/>
+
+          <!-- Bandeirinhas suaves no topo -->
+          <polygon points="10,55 55,115 95,55" fill="#f43f5e" opacity="0.85"/>
+          <polygon points="95,55 140,120 185,55" fill="#facc15" opacity="0.85"/>
+          <polygon points="185,55 230,120 275,55" fill="#38bdf8" opacity="0.85"/>
+          <polygon points="275,55 320,120 365,55" fill="#34d399" opacity="0.85"/>
+          <polygon points="365,55 405,115 440,55" fill="#c084fc" opacity="0.85"/>
+
+          <!-- Fliperama Iluminado Suave à Esquerda -->
+          <g transform="translate(22, 195)">
+            <rect x="0" y="0" width="135" height="340" rx="26" fill="#4f46e5"/>
+            <rect x="14" y="18" width="107" height="32" rx="12" fill="#fde047"/>
+            <rect x="18" y="65" width="99" height="88" rx="16" fill="#0f172a"/>
+            <circle cx="67" cy="109" r="24" fill="#a855f7" opacity="0.9"/>
+            <circle cx="48" cy="180" r="9" fill="#f43f5e"/>
+            <circle cx="78" cy="184" r="7" fill="#34d399"/>
+            <circle cx="98" cy="178" r="7" fill="#38bdf8"/>
           </g>
 
-          <!-- Máquina de Fliperama Arcade (Esquerda) -->
-          <g transform="translate(105, 140)">
-            <polygon points="20,0 220,0 250,120 230,480 0,480 0,120" fill="#e11d48" stroke="#231138" stroke-width="6"/>
-            <rect x="25" y="20" width="195" height="50" rx="8" fill="#fde047" stroke="#231138" stroke-width="5"/>
-            <text x="58" y="53" font-family="Fredoka" font-size="28" font-weight="700" fill="#231138">OCTO-ARCADE</text>
-            <!-- Tela do Arcade -->
-            <rect x="40" y="90" width="165" height="135" rx="14" fill="#0f172a" stroke="#231138" stroke-width="5"/>
-            <circle cx="122" cy="155" r="32" fill="#a855f7" stroke="#22d3ee" stroke-width="4"/>
-            <!-- Joysticks -->
-            <line x1="80" y1="260" x2="80" y2="230" stroke="#231138" stroke-width="6"/>
-            <circle cx="80" cy="225" r="12" fill="#facc15" stroke="#231138" stroke-width="4"/>
-            <circle cx="145" cy="245" r="10" fill="#22c55e" stroke="#231138" stroke-width="4"/>
-            <circle cx="175" cy="240" r="10" fill="#38bdf8" stroke="#231138" stroke-width="4"/>
+          <!-- Estante Geek com Lava Lamp, Discos de Vinil, Livros e Pelúcias à Direita -->
+          <g transform="translate(230, 175)">
+            <rect x="0" y="95" width="180" height="12" rx="6" fill="#c084fc" opacity="0.55"/>
+            <!-- Lava lamp brilhante -->
+            <path d="M28 95 L40 25 L62 25 L74 95 Z" fill="#fb7185"/>
+            <circle cx="51" cy="68" r="11" fill="#fde047"/>
+            <circle cx="51" cy="44" r="7" fill="#fde047"/>
+            <!-- Vinil colorido -->
+            <circle cx="130" cy="58" r="34" fill="#1e1b4b"/>
+            <circle cx="130" cy="58" r="13" fill="#38bdf8"/>
+
+            <rect x="15" y="215" width="165" height="12" rx="6" fill="#c084fc" opacity="0.55"/>
+            <!-- Troféu e livros -->
+            <path d="M35 155 L75 155 L65 205 L45 205 Z" fill="#facc15"/>
+            <rect x="98" y="150" width="18" height="65" rx="5" fill="#34d399"/>
+            <rect x="118" y="142" width="20" height="73" rx="5" fill="#38bdf8"/>
+            <rect x="140" y="156" width="18" height="59" rx="5" fill="#f43f5e"/>
           </g>
 
-          <!-- Pôsteres Pop-Art e Estante de Troféus / Discos de Vinil / Lava Lamp (Direita) -->
-          <g transform="translate(990, 120)">
-            <!-- Pôsteres -->
-            <rect x="-150" y="10" width="115" height="145" rx="10" fill="#facc15" stroke="#231138" stroke-width="5" transform="rotate(-6 -90 80)"/>
-            <circle cx="-92" cy="80" r="35" fill="#ec4899" stroke="#231138" stroke-width="4"/>
-
-            <!-- Estante Cheia de Brinquedos, Livros e Lava Lamp -->
-            <rect x="20" y="80" width="330" height="420" rx="16" fill="#7c2d12" stroke="#231138" stroke-width="6"/>
-            <rect x="40" y="100" width="290" height="115" fill="#fb923c" stroke="#231138" stroke-width="5"/>
-            <rect x="40" y="235" width="290" height="115" fill="#fb923c" stroke="#231138" stroke-width="5"/>
-            <rect x="40" y="370" width="290" height="110" fill="#fb923c" stroke="#231138" stroke-width="5"/>
-            <!-- Troféu dourado -->
-            <polygon points="80,140 130,140 118,195 92,195" fill="#fde047" stroke="#231138" stroke-width="4"/>
-            <rect x="85" y="195" width="40" height="18" fill="#231138"/>
-            <!-- Lava Lamp -->
-            <polygon points="235,195 250,120 275,120 290,195" fill="#f43f5e" stroke="#231138" stroke-width="4"/>
-            <rect x="235" y="195" width="55" height="18" fill="#94a3b8" stroke="#231138" stroke-width="4"/>
-            <!-- Livros coloridos -->
-            <rect x="60" y="270" width="28" height="80" fill="#22c55e" stroke="#231138" stroke-width="4"/>
-            <rect x="88" y="260" width="30" height="90" fill="#38bdf8" stroke="#231138" stroke-width="4"/>
-            <rect x="118" y="275" width="26" height="75" fill="#a855f7" stroke="#231138" stroke-width="4"/>
-            <!-- Caixa de Som Boombox -->
-            <rect x="180" y="275" width="125" height="72" rx="10" fill="#475569" stroke="#231138" stroke-width="5"/>
-            <circle cx="212" cy="312" r="22" fill="#1e293b" stroke="#231138" stroke-width="4"/>
-            <circle cx="272" cy="312" r="22" fill="#1e293b" stroke="#231138" stroke-width="4"/>
-          </g>
-
-          <!-- Piso de Madeira Colorida + Tapete Estrela -->
-          <rect y="620" width="1440" height="280" fill="#581c87" stroke="#231138" stroke-width="6"/>
-          <g transform="translate(360, 590)">
-            <ellipse cx="360" cy="80" rx="330" ry="68" fill="#22d3ee" stroke="#231138" stroke-width="6"/>
-            <ellipse cx="360" cy="80" rx="280" ry="54" fill="#f43f5e" stroke="#231138" stroke-width="5"/>
-            <ellipse cx="360" cy="80" rx="220" ry="40" fill="#fde047" stroke="#231138" stroke-width="5"/>
-          </g>
+          <!-- Palco / Tapete Redondo de Jogos sob o Bis -->
+          <path d="M-20 575 Q215 545 450 575 L450 900 L-20 900 Z" fill="url(#pFloor)"/>
+          <ellipse cx="215" cy="605" rx="172" ry="38" fill="#f472b6" opacity="0.45"/>
+          <ellipse cx="215" cy="605" rx="138" ry="28" fill="#fde047" opacity="0.65"/>
         </svg>
       </section>
 
-      <!-- ================= SALA 3: QUARTO MAXIMALISTA ACONCHEGANTE ================= -->
-      <section class="room-slide" data-room="3">
-        <svg class="room-bg-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <!-- 3. QUARTO -->
+      <section class="room-scene scene-bedroom">
+        <svg class="scene-art" viewBox="0 0 430 900" preserveAspectRatio="xMidYMid slice">
           <defs>
-            <pattern id="starWall" width="110" height="110" patternUnits="userSpaceOnUse">
-              <rect width="110" height="110" fill="#1e1b4b"/>
-              <circle cx="25" cy="30" r="3.5" fill="#fef08a"/>
-              <circle cx="80" cy="75" r="4.5" fill="#bae6fd"/>
-              <polygon points="75,18 79,28 89,28 81,34 84,44 75,38 66,44 69,34 61,28 71,28" fill="#fde047" opacity="0.65"/>
-            </pattern>
+            <linearGradient id="nWall" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0f172a"/>
+              <stop offset="55%" stop-color="#1e1b4b"/>
+              <stop offset="100%" stop-color="#311042"/>
+            </linearGradient>
+            <linearGradient id="nFloor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4c1d95"/>
+              <stop offset="30%" stop-color="#2e1065"/>
+              <stop offset="100%" stop-color="#090514"/>
+            </linearGradient>
           </defs>
 
-          <rect width="1440" height="620" fill="url(#starWall)"/>
+          <rect width="430" height="640" fill="url(#nWall)"/>
 
-          <!-- Varal de Luzinhas de Fada no Topo -->
-          <path d="M0 30 Q360 130 720 40 Q1080 130 1440 30" fill="none" stroke="#231138" stroke-width="5"/>
-          <g stroke="#231138" stroke-width="3.5" fill="#fde047">
-            <circle cx="180" cy="68" r="13"/><circle cx="360" cy="82" r="13"/><circle cx="540" cy="65" r="13"/>
-            <circle cx="900" cy="65" r="13"/><circle cx="1080" cy="82" r="13"/><circle cx="1260" cy="68" r="13"/>
+          <!-- Constelações, nebulosa suave e estrelinhas sem contorno -->
+          <circle cx="320" cy="190" r="110" fill="#8b5cf6" opacity="0.14"/>
+          <circle cx="95" cy="240" r="90" fill="#38bdf8" opacity="0.12"/>
+          <circle cx="55" cy="120" r="3" fill="#fef08a"/>
+          <circle cx="140" cy="95" r="2.5" fill="#ffffff"/>
+          <circle cx="365" cy="110" r="3.5" fill="#fef08a"/>
+          <circle cx="295" cy="165" r="2.5" fill="#bae6fd"/>
+          <circle cx="380" cy="275" r="3" fill="#fef08a"/>
+
+          <!-- Janela Arqueada com Céu Estrelado e Lua Crescente Brilhante -->
+          <g transform="translate(32, 130)">
+            <rect x="0" y="0" width="155" height="235" rx="77" fill="#060913"/>
+            <circle cx="78" cy="88" r="46" fill="#fef08a" opacity="0.2"/>
+            <circle cx="75" cy="88" r="30" fill="#fef08a"/>
+            <circle cx="88" cy="78" r="26" fill="#060913"/>
+            <circle cx="42" cy="155" r="2.5" fill="#ffffff"/>
+            <circle cx="115" cy="140" r="3" fill="#bae6fd"/>
+            <path d="M0 195 Q80 170 155 200 L155 235 L0 235 Z" fill="#1e1b4b"/>
           </g>
 
-          <!-- Janela Arqueada Noturna com Lua Crescente + Telescópio (Esquerda) -->
-          <g transform="translate(110, 90)">
-            <path d="M0 290 L0 130 C0 10, 240 10, 240 130 L240 290 Z" fill="#090d16" stroke="#231138" stroke-width="7"/>
-            <circle cx="95" cy="115" r="42" fill="#fef08a" stroke="#231138" stroke-width="4"/>
-            <circle cx="115" cy="102" r="34" fill="#090d16"/>
-            <!-- Telescópio Dourado -->
-            <line x1="175" y1="220" x2="115" y2="175" stroke="#f59e0b" stroke-width="18" stroke-linecap="round"/>
-            <line x1="175" y1="220" x2="115" y2="175" stroke="#231138" stroke-width="4"/>
-            <line x1="150" y1="205" x2="125" y2="285" stroke="#231138" stroke-width="6"/>
-            <line x1="150" y1="205" x2="175" y2="285" stroke="#231138" stroke-width="6"/>
+          <!-- Prateleira com Pelúcias, Livros e Relógio à Direita -->
+          <g transform="translate(235, 210)">
+            <rect x="0" y="85" width="165" height="12" rx="6" fill="#a855f7" opacity="0.45"/>
+            <!-- Gatinho de pelúcia dormindo -->
+            <ellipse cx="62" cy="66" rx="34" ry="20" fill="#f472b6"/>
+            <polygon points="36,54 44,35 56,52" fill="#f472b6"/>
+            <polygon points="68,52 80,35 88,54" fill="#f472b6"/>
+            <!-- Globo luminoso -->
+            <circle cx="132" cy="56" r="24" fill="#38bdf8" opacity="0.8"/>
+            <circle cx="132" cy="56" r="32" fill="#38bdf8" opacity="0.22"/>
           </g>
 
-          <!-- Abajur Pendente Vintage Clicável -->
-          <g class="clickable-lamp" id="room-lamp" transform="translate(655, 0)">
-            <line x1="65" y1="0" x2="65" y2="85" stroke="#231138" stroke-width="6"/>
-            <polygon points="20,130 45,80 85,80 110,130" fill="#f43f5e" stroke="#231138" stroke-width="5"/>
-            <circle cx="65" cy="135" r="16" fill="#fef08a" stroke="#231138" stroke-width="4"/>
+          <!-- Luminária Pendente Aconchegante no Centro -->
+          <g id="room-lamp" class="clickable-lamp" transform="translate(215, 0)">
+            <rect x="-2" y="0" width="4" height="75" fill="#94a3b8" opacity="0.6"/>
+            <circle cx="0" cy="95" r="56" fill="#fef08a" opacity="0.22" id="lamp-aura"/>
+            <path d="M-34 92 C-34 58, 34 58, 34 92 Z" fill="#fb7185"/>
+            <circle cx="0" cy="94" r="12" fill="#fef08a"/>
           </g>
 
-          <!-- Prateleira com Pelúcias, Despertador e Quadros (Direita) -->
-          <g transform="translate(1010, 145)">
-            <rect x="0" y="135" width="310" height="20" rx="8" fill="#c084fc" stroke="#231138" stroke-width="5"/>
-            <!-- Relógio despertador retrô -->
-            <circle cx="75" cy="95" r="35" fill="#38bdf8" stroke="#231138" stroke-width="5"/>
-            <circle cx="75" cy="95" r="24" fill="#ffffff" stroke="#231138" stroke-width="3"/>
-            <circle cx="48" cy="58" r="12" fill="#facc15" stroke="#231138" stroke-width="4"/>
-            <circle cx="102" cy="58" r="12" fill="#facc15" stroke="#231138" stroke-width="4"/>
-            <!-- Pelúcia de Gatinho Dormindo -->
-            <ellipse cx="215" cy="112" rx="48" ry="26" fill="#fb7185" stroke="#231138" stroke-width="5"/>
-            <polygon points="180,95 190,72 205,92" fill="#fb7185" stroke="#231138" stroke-width="4"/>
-            <polygon points="225,92 240,72 250,95" fill="#fb7185" stroke="#231138" stroke-width="4"/>
-          </g>
-
-          <!-- Piso do Quarto + Cama Real Acolchoada do Bis -->
-          <rect y="620" width="1440" height="280" fill="#311042" stroke="#231138" stroke-width="6"/>
-          <g transform="translate(350, 565)">
-            <ellipse cx="370" cy="105" rx="345" ry="78" fill="#f43f5e" stroke="#231138" stroke-width="7"/>
-            <ellipse cx="370" cy="92" rx="305" ry="62" fill="#c084fc" stroke="#231138" stroke-width="6"/>
-            <ellipse cx="370" cy="86" rx="250" ry="48" fill="#fef08a" stroke="#231138" stroke-width="5"/>
-          </g>
+          <!-- Cama / Almofadão Real Macio onde o Bis Dorme -->
+          <path d="M-20 575 Q215 545 450 575 L450 900 L-20 900 Z" fill="url(#nFloor)"/>
+          <ellipse cx="215" cy="605" rx="178" ry="44" fill="#6366f1" opacity="0.75"/>
+          <ellipse cx="215" cy="602" rx="148" ry="33" fill="#c084fc" opacity="0.8"/>
+          <ellipse cx="215" cy="600" rx="115" ry="23" fill="#fef08a" opacity="0.75"/>
         </svg>
       </section>
 
-      <!-- ================= SALA 4: CLOSET / ATELIÊ MAXIMALISTA (CRIE SEU BIS) ================= -->
-      <section class="room-slide" data-room="4">
-        <svg class="room-bg-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <!-- 4. CLOSET / CRIE SEU BIS -->
+      <section class="room-scene scene-closet">
+        <svg class="scene-art" viewBox="0 0 430 900" preserveAspectRatio="xMidYMid slice">
           <defs>
-            <pattern id="boutiqueStripes" width="80" height="80" patternUnits="userSpaceOnUse">
-              <rect width="40" height="80" fill="#fce7f3"/>
-              <rect x="40" width="40" height="80" fill="#fbcfe8"/>
+            <linearGradient id="cWall" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#fdf2f8"/>
+              <stop offset="55%" stop-color="#fce7f3"/>
+              <stop offset="100%" stop-color="#f5d0fe"/>
+            </linearGradient>
+            <linearGradient id="cFloor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#d946ef"/>
+              <stop offset="25%" stop-color="#a21caf"/>
+              <stop offset="100%" stop-color="#4a044e"/>
+            </linearGradient>
+            <pattern id="cStripes" width="56" height="56" patternUnits="userSpaceOnUse">
+              <rect width="28" height="56" fill="#fbcfe8" opacity="0.35"/>
             </pattern>
           </defs>
 
-          <rect width="1440" height="620" fill="url(#boutiqueStripes)"/>
+          <rect width="430" height="640" fill="url(#cWall)"/>
+          <rect width="430" height="640" fill="url(#cStripes)"/>
 
-          <!-- Cortinas de Veludo de Teatro/Boutique com Franjas Douradas -->
-          <path d="M0 0 L260 0 C220 260, 160 440, 95 620 L0 620 Z" fill="#be123c" stroke="#231138" stroke-width="6"/>
-          <path d="M1440 0 L1180 0 C1220 260, 1280 440, 1345 620 L1440 620 Z" fill="#be123c" stroke="#231138" stroke-width="6"/>
+          <!-- Cortinas de Veludo Suaves nas Laterais -->
+          <path d="M0 0 L115 0 C95 220, 65 410, 25 590 L0 590 Z" fill="#ec4899" opacity="0.75"/>
+          <path d="M430 0 L315 0 C335 220, 365 410, 405 590 L430 590 Z" fill="#ec4899" opacity="0.75"/>
 
-          <!-- Arara de Chapéus, Roupas e Caixas de Sapato (Esquerda) -->
-          <g transform="translate(175, 170)">
-            <line x1="30" y1="60" x2="30" y2="440" stroke="#f59e0b" stroke-width="10"/>
-            <line x1="250" y1="60" x2="250" y2="440" stroke="#f59e0b" stroke-width="10"/>
-            <line x1="10" y1="60" x2="270" y2="60" stroke="#f59e0b" stroke-width="12" stroke-linecap="round"/>
-            <!-- Caixas empilhadas -->
-            <rect x="45" y="340" width="110" height="55" rx="6" fill="#a855f7" stroke="#231138" stroke-width="5"/>
-            <rect x="55" y="290" width="90" height="50" rx="6" fill="#38bdf8" stroke="#231138" stroke-width="5"/>
-            <rect x="165" y="355" width="85" height="40" rx="6" fill="#facc15" stroke="#231138" stroke-width="5"/>
+          <!-- Espelho de Camarim Iluminado ao Fundo Central -->
+          <g transform="translate(105, 115)">
+            <rect x="0" y="0" width="220" height="310" rx="110" fill="#facc15" opacity="0.65"/>
+            <rect x="16" y="16" width="188" height="278" rx="94" fill="#e0f2fe"/>
+            <!-- Luzinhas suaves de camarim sem contorno -->
+            <circle cx="22" cy="85" r="8" fill="#ffffff"/>
+            <circle cx="14" cy="155" r="8" fill="#ffffff"/>
+            <circle cx="22" cy="225" r="8" fill="#ffffff"/>
+            <circle cx="198" cy="85" r="8" fill="#ffffff"/>
+            <circle cx="206" cy="155" r="8" fill="#ffffff"/>
+            <circle cx="198" cy="225" r="8" fill="#ffffff"/>
           </g>
 
-          <!-- Penteadeira Camarim com Luzes e Carretéis de Impressora 3D (Direita) -->
-          <g transform="translate(1000, 125)">
-            <rect x="0" y="0" width="240" height="310" rx="22" fill="#f59e0b" stroke="#231138" stroke-width="6"/>
-            <rect x="24" y="24" width="192" height="262" rx="14" fill="#bae6fd" stroke="#231138" stroke-width="5"/>
-            <!-- Lâmpadas de camarim -->
-            <circle cx="12" cy="50" r="10" fill="#fef08a" stroke="#231138" stroke-width="3"/>
-            <circle cx="12" cy="155" r="10" fill="#fef08a" stroke="#231138" stroke-width="3"/>
-            <circle cx="12" cy="260" r="10" fill="#fef08a" stroke="#231138" stroke-width="3"/>
-            <circle cx="228" cy="50" r="10" fill="#fef08a" stroke="#231138" stroke-width="3"/>
-            <circle cx="228" cy="155" r="10" fill="#fef08a" stroke="#231138" stroke-width="3"/>
-            <circle cx="228" cy="260" r="10" fill="#fef08a" stroke="#231138" stroke-width="3"/>
-          </g>
-
-          <!-- Piso do Closet + Pódio Tapete Vermelho Estrelado -->
-          <rect y="620" width="1440" height="280" fill="#701a75" stroke="#231138" stroke-width="6"/>
-          <g transform="translate(360, 580)">
-            <ellipse cx="360" cy="90" rx="330" ry="72" fill="#facc15" stroke="#231138" stroke-width="7"/>
-            <ellipse cx="360" cy="80" rx="290" ry="56" fill="#e11d48" stroke="#231138" stroke-width="6"/>
-            <ellipse cx="360" cy="74" rx="235" ry="42" fill="#fde047" stroke="#231138" stroke-width="4"/>
-          </g>
+          <!-- Pódio Iluminado sob o Bis -->
+          <path d="M-20 575 Q215 545 450 575 L450 900 L-20 900 Z" fill="url(#cFloor)"/>
+          <ellipse cx="215" cy="605" rx="172" ry="40" fill="#fde047" opacity="0.75"/>
+          <ellipse cx="215" cy="602" rx="145" ry="30" fill="#ffffff" opacity="0.85"/>
         </svg>
       </section>
     </div>
 
-    <!-- Overlay Noturno do Quarto -->
+    <!-- Escuridão suave quando a luz do quarto está apagada -->
     <div class="night-overlay" id="night-overlay"></div>
 
-    <!-- ================= PALCO CENTRAL DO BIS ( CABEÇA ESFÉRICA REDONDA + TENTÁCULOS ARTICULADOS ) ================= -->
+    <!-- ================= HUD SUPERIOR DIRETO NA TELA (SEM CAIXA DENTRO DE CAIXA!) ================= -->
+    <header class="pou-top-bar">
+      <div class="top-stats-row">
+        <!-- Moedas à esquerda -->
+        <div class="floating-coins" title="Moedas">
+          <span class="coin-orb">🪙</span>
+          <span id="hud-coins">120</span>
+        </div>
+
+        <!-- 4 Status Flutuantes Estilo Pou (Sem caixas em volta) -->
+        <div class="floating-meters">
+          <div class="meter-orb" title="Fome">
+            <span class="orb-emoji">🍙</span>
+            <div class="orb-bar"><div class="orb-fill" id="hud-hunger"></div></div>
+          </div>
+          <div class="meter-orb" title="Limpeza">
+            <span class="orb-emoji">🫧</span>
+            <div class="orb-bar"><div class="orb-fill" id="hud-clean"></div></div>
+          </div>
+          <div class="meter-orb" title="Diversão">
+            <span class="orb-emoji">🎾</span>
+            <div class="orb-bar"><div class="orb-fill" id="hud-fun"></div></div>
+          </div>
+          <div class="meter-orb" title="Energia">
+            <span class="orb-emoji">⚡</span>
+            <div class="orb-bar"><div class="orb-fill" id="hud-energy"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navegação de Cômodo Limpa (Setas + Título Solto Estilo Pou) -->
+      <div class="room-nav-row">
+        <button class="clean-arrow" id="btn-prev-room" aria-label="Anterior">‹</button>
+        <span class="clean-room-title" id="room-title">Cozinha</span>
+        <button class="clean-arrow" id="btn-next-room" aria-label="Próximo">›</button>
+      </div>
+    </header>
+
+    <!-- ================= PALCO CENTRAL DO BIS (SUPER ANIMADO, CABEÇA REDONDA ESFÉRICA, SEM CONTORNO) ================= -->
     <main class="bis-stage" id="bis-stage">
       <div class="bis-nametag" id="bis-nametag">Bis</div>
 
-      <!-- Efeitos (Comida, Água, Corações, Notas, Bolhas) -->
       <div class="stage-fx-layer" id="stage-fx-layer"></div>
       <div class="foam-container" id="foam-container"></div>
       <div class="bouncing-ball" id="bouncing-ball">⚽</div>
 
-      <!-- PERSONAGEM BIS (Cabeça perfeitamente arredondada como na foto do chaveiro + gomos articulados) -->
-      <div class="bis-wrapper" id="bis-wrapper" title="Toque no Bis!">
-        <svg class="bis-svg" id="bis-svg" viewBox="0 0 380 330" xmlns="http://www.w3.org/2000/svg">
+      <div class="bis-wrapper" id="bis-wrapper">
+        <svg class="bis-svg" id="bis-svg" viewBox="0 0 380 340" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <!-- Gradiente 3D Roxo Elétrico Fiel à Foto -->
-            <radialGradient id="bisBodyGrad" cx="38%" cy="32%" r="65%">
-              <stop offset="0%" id="grad-highlight" stop-color="#8b5cf6" />
-              <stop offset="50%" id="grad-main" stop-color="#5b21ff" />
-              <stop offset="100%" id="grad-shadow" stop-color="#350ca9" />
+            <!-- Gradiente 3D Suave Sem Contorno (Fiel ao Polvo Roxo 3D da Foto) -->
+            <radialGradient id="bisBodyGrad" cx="36%" cy="28%" r="68%">
+              <stop offset="0%" id="grad-highlight" stop-color="#9d74ff" />
+              <stop offset="48%" id="grad-main" stop-color="#5e24ff" />
+              <stop offset="100%" id="grad-shadow" stop-color="#310a9e" />
             </radialGradient>
 
-            <radialGradient id="bisSegmentGrad" cx="35%" cy="30%" r="70%">
-              <stop offset="0%" id="seg-highlight" stop-color="#7c3aed" />
+            <radialGradient id="bisSegmentGrad" cx="35%" cy="28%" r="72%">
+              <stop offset="0%" id="seg-highlight" stop-color="#8b5cf6" />
               <stop offset="55%" id="seg-main" stop-color="#4f16e8" />
-              <stop offset="100%" id="seg-shadow" stop-color="#2b088a" />
+              <stop offset="100%" id="seg-shadow" stop-color="#26067d" />
             </radialGradient>
+
+            <radialGradient id="bisBackGrad" cx="40%" cy="35%" r="70%">
+              <stop offset="0%" stop-color="#4c1d95" />
+              <stop offset="100%" stop-color="#1e064a" />
+            </radialGradient>
+
+            <filter id="bisSoftDrop" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#150438" flood-opacity="0.35" />
+            </filter>
           </defs>
 
-          <!-- Sombra no tapete/mesa -->
-          <ellipse cx="190" cy="278" rx="125" ry="24" fill="rgba(35, 17, 56, 0.35)" />
+          <!-- Sombra macia no chão -->
+          <ellipse id="bis-shadow" cx="190" cy="276" rx="118" ry="22" fill="rgba(20, 5, 52, 0.28)" />
 
-          <!-- TENTÁCULOS TRASEIROS (Contorno Cartoon Marcante) -->
-          <g stroke="#1e0b36" stroke-width="4" stroke-linejoin="round">
-            <g class="tentacle-articulated" style="--delay: 0.15s">
-              <rect x="75" y="182" width="32" height="24" rx="12" transform="rotate(-26 91 194)" fill="url(#bisSegmentGrad)" />
-              <rect x="49" y="195" width="30" height="24" rx="12" transform="rotate(-20 64 207)" fill="url(#bisSegmentGrad)" />
-              <circle cx="36" cy="212" r="14" fill="url(#bisBodyGrad)" />
-            </g>
-            <g class="tentacle-articulated" style="--delay: 0.45s">
-              <rect x="273" y="182" width="32" height="24" rx="12" transform="rotate(26 289 194)" fill="url(#bisSegmentGrad)" />
-              <rect x="301" y="195" width="30" height="24" rx="12" transform="rotate(20 316 207)" fill="url(#bisSegmentGrad)" />
-              <circle cx="344" cy="212" r="14" fill="url(#bisBodyGrad)" />
-            </g>
-          </g>
+          <!-- Grupo de Física Elástica do Corpo Inteiro -->
+          <g id="bis-physics-root" filter="url(#bisSoftDrop)">
 
-          <!-- TENTÁCULOS ARTICULADOS FRONTAIS (6 Tentáculos em Gomos Estilo Impressão 3D) -->
-          <g class="tentacles-front" stroke="#1e0b36" stroke-width="4" stroke-linejoin="round">
-            <!-- Tentáculo 1 (Esquerda Extrema) -->
-            <g class="tentacle-articulated t-1" style="--delay: 0s">
-              <rect x="92" y="190" width="34" height="26" rx="13" transform="rotate(-25 109 203)" fill="url(#bisSegmentGrad)" />
-              <rect x="66" y="206" width="32" height="26" rx="13" transform="rotate(-20 82 219)" fill="url(#bisSegmentGrad)" />
-              <rect x="85" y="201" width="12" height="6" rx="3" transform="rotate(-22 91 204)" fill="#180538" stroke="none"/>
-              <ellipse cx="52" cy="232" rx="17" ry="15" transform="rotate(-12 52 232)" fill="url(#bisBodyGrad)" />
-            </g>
-
-            <!-- Tentáculo 2 (Esquerda) -->
-            <g class="tentacle-articulated t-2" style="--delay: 0.12s">
-              <rect x="118" y="196" width="34" height="28" rx="13" transform="rotate(-15 135 210)" fill="url(#bisSegmentGrad)" />
-              <rect x="102" y="220" width="33" height="27" rx="13" transform="rotate(-12 118 233)" fill="url(#bisSegmentGrad)" />
-              <rect x="120" y="212" width="8" height="12" rx="3" transform="rotate(-14 124 218)" fill="#180538" stroke="none"/>
-              <ellipse cx="98" cy="256" rx="18" ry="15" transform="rotate(-8 98 256)" fill="url(#bisBodyGrad)" />
-            </g>
-
-            <!-- Tentáculo 3 (Centro-Esquerda) -->
-            <g class="tentacle-articulated t-3" style="--delay: 0.24s">
-              <rect x="152" y="200" width="33" height="29" rx="13" transform="rotate(-5 168 214)" fill="url(#bisSegmentGrad)" />
-              <rect x="146" y="225" width="32" height="28" rx="13" transform="rotate(-4 162 239)" fill="url(#bisSegmentGrad)" />
-              <rect x="162" y="217" width="8" height="12" rx="3" transform="rotate(-5 166 223)" fill="#180538" stroke="none"/>
-              <ellipse cx="156" cy="264" rx="18" ry="15" fill="url(#bisBodyGrad)" />
-            </g>
-
-            <!-- Tentáculo 4 (Centro-Direita) -->
-            <g class="tentacle-articulated t-4" style="--delay: 0.36s">
-              <rect x="195" y="200" width="33" height="29" rx="13" transform="rotate(5 212 214)" fill="url(#bisSegmentGrad)" />
-              <rect x="202" y="225" width="32" height="28" rx="13" transform="rotate(4 218 239)" fill="url(#bisSegmentGrad)" />
-              <rect x="210" y="217" width="8" height="12" rx="3" transform="rotate(5 214 223)" fill="#180538" stroke="none"/>
-              <ellipse cx="224" cy="264" rx="18" ry="15" fill="url(#bisBodyGrad)" />
-            </g>
-
-            <!-- Tentáculo 5 (Direita) -->
-            <g class="tentacle-articulated t-5" style="--delay: 0.48s">
-              <rect x="228" y="196" width="34" height="28" rx="13" transform="rotate(15 245 210)" fill="url(#bisSegmentGrad)" />
-              <rect x="245" y="220" width="33" height="27" rx="13" transform="rotate(12 262 233)" fill="url(#bisSegmentGrad)" />
-              <rect x="252" y="212" width="8" height="12" rx="3" transform="rotate(14 256 218)" fill="#180538" stroke="none"/>
-              <ellipse cx="282" cy="256" rx="18" ry="15" transform="rotate(8 282 256)" fill="url(#bisBodyGrad)" />
-            </g>
-
-            <!-- Tentáculo 6 (Direita Extrema) -->
-            <g class="tentacle-articulated t-6" style="--delay: 0.6s">
-              <rect x="254" y="190" width="34" height="26" rx="13" transform="rotate(25 271 203)" fill="url(#bisSegmentGrad)" />
-              <rect x="282" y="206" width="32" height="26" rx="13" transform="rotate(20 298 219)" fill="url(#bisSegmentGrad)" />
-              <rect x="283" y="201" width="12" height="6" rx="3" transform="rotate(22 289 204)" fill="#180538" stroke="none"/>
-              <ellipse cx="328" cy="232" rx="17" ry="15" transform="rotate(12 328 232)" fill="url(#bisBodyGrad)" />
-            </g>
-          </g>
-
-          <!-- CABEÇA REDONDA ESFÉRICA DO BIS (PERFEITAMENTE ARREDONDADA COMO UMA BOLA!) -->
-          <g class="bis-head-group" id="bis-head-group">
-            <!-- Esfera perfeitamente redonda da cabeça -->
-            <ellipse
-              id="bis-head-dome"
-              cx="190"
-              cy="144"
-              rx="66"
-              ry="63"
-              fill="url(#bisBodyGrad)"
-              stroke="#1e0b36"
-              stroke-width="4.5"
-            />
-
-            <!-- Brilho plástico no topo da esfera -->
-            <ellipse cx="164" cy="108" rx="22" ry="11" transform="rotate(-22 164 108)" fill="rgba(255, 255, 255, 0.28)" />
-
-            <!-- Recortes de articulação na base inferior da esfera -->
-            <g fill="#180538">
-              <path d="M136 190 Q142 178 148 193 Z" />
-              <path d="M164 199 Q170 185 176 201 Z" />
-              <path d="M204 201 Q210 185 216 199 Z" />
-              <path d="M232 193 Q238 178 244 190 Z" />
-            </g>
-
-            <!-- Manchas de sujeira -->
-            <g id="bis-dirt-spots" opacity="0">
-              <circle cx="145" cy="125" r="10" fill="#5c4033" opacity="0.6" />
-              <circle cx="232" cy="162" r="9" fill="#5c4033" opacity="0.55" />
-              <circle cx="175" cy="182" r="8" fill="#5c4033" opacity="0.55" />
-            </g>
-
-            <!-- OLHOS REDONDOS SALTADOS (Brancos com Pupila Preta Redonda, idênticos à foto) -->
-            <g id="bis-eyes-open">
-              <!-- Olho Esquerdo -->
-              <g transform="translate(162, 148)">
-                <circle cx="0" cy="0" r="19" fill="#ffffff" stroke="#1e0b36" stroke-width="4" />
-                <g id="pupil-left">
-                  <circle cx="-1" cy="1" r="11" fill="#111827" />
-                  <circle cx="-5" cy="-3" r="3.5" fill="#ffffff" />
-                </g>
+            <!-- TENTÁCULOS DE TRÁS (Sem contorno) -->
+            <g fill="url(#bisBackGrad)">
+              <g class="tentacle-proc" data-index="0">
+                <rect x="78" y="182" width="32" height="24" rx="12" transform="rotate(-26 94 194)" />
+                <rect x="52" y="195" width="30" height="23" rx="11.5" transform="rotate(-20 67 206)" />
+                <circle cx="38" cy="211" r="13.5" />
               </g>
-
-              <!-- Olho Direito -->
-              <g transform="translate(218, 148)">
-                <circle cx="0" cy="0" r="19" fill="#ffffff" stroke="#1e0b36" stroke-width="4" />
-                <g id="pupil-right">
-                  <circle cx="-1" cy="1" r="11" fill="#111827" />
-                  <circle cx="-5" cy="-3" r="3.5" fill="#ffffff" />
-                </g>
+              <g class="tentacle-proc" data-index="7">
+                <rect x="270" y="182" width="32" height="24" rx="12" transform="rotate(26 286 194)" />
+                <rect x="298" y="195" width="30" height="23" rx="11.5" transform="rotate(20 313 206)" />
+                <circle cx="342" cy="211" r="13.5" />
               </g>
             </g>
 
-            <!-- Olhos Fechados -->
-            <g id="bis-eyes-closed" style="display: none">
-              <path d="M 145 150 Q 162 135 179 150" stroke="#1e0b36" stroke-width="5.5" stroke-linecap="round" fill="none" />
-              <path d="M 201 150 Q 218 135 235 150" stroke="#1e0b36" stroke-width="5.5" stroke-linecap="round" fill="none" />
+            <!-- 6 TENTÁCULOS ARTICULADOS FRONTAIS (Sem Contorno, Animados via Física JS em Onda) -->
+            <g class="tentacles-front">
+              <!-- Tentáculo 1 -->
+              <g class="tentacle-proc" data-index="1">
+                <rect class="seg-1" x="94" y="188" width="34" height="26" rx="13" transform="rotate(-25 111 201)" fill="url(#bisSegmentGrad)" />
+                <rect class="joint" x="88" y="200" width="11" height="6" rx="3" transform="rotate(-22 93 203)" fill="#1c0554" opacity="0.8"/>
+                <rect class="seg-2" x="68" y="204" width="32" height="25" rx="12.5" transform="rotate(-20 84 216)" fill="url(#bisSegmentGrad)" />
+                <ellipse class="seg-3" cx="52" cy="230" rx="17" ry="14.5" transform="rotate(-12 52 230)" fill="url(#bisBodyGrad)" />
+              </g>
+
+              <!-- Tentáculo 2 -->
+              <g class="tentacle-proc" data-index="2">
+                <rect class="seg-1" x="120" y="195" width="34" height="28" rx="14" transform="rotate(-15 137 209)" fill="url(#bisSegmentGrad)" />
+                <rect class="joint" x="122" y="211" width="8" height="11" rx="3.5" transform="rotate(-14 126 216)" fill="#1c0554" opacity="0.8"/>
+                <rect class="seg-2" x="103" y="218" width="33" height="27" rx="13.5" transform="rotate(-12 119 231)" fill="url(#bisSegmentGrad)" />
+                <ellipse class="seg-3" cx="98" cy="254" rx="18" ry="15" transform="rotate(-8 98 254)" fill="url(#bisBodyGrad)" />
+              </g>
+
+              <!-- Tentáculo 3 -->
+              <g class="tentacle-proc" data-index="3">
+                <rect class="seg-1" x="152" y="198" width="33" height="29" rx="14" transform="rotate(-5 168 212)" fill="url(#bisSegmentGrad)" />
+                <rect class="joint" x="162" y="216" width="8" height="11" rx="3.5" transform="rotate(-5 166 221)" fill="#1c0554" opacity="0.8"/>
+                <rect class="seg-2" x="146" y="224" width="32" height="28" rx="14" transform="rotate(-4 162 238)" fill="url(#bisSegmentGrad)" />
+                <ellipse class="seg-3" cx="156" cy="262" rx="18" ry="15" fill="url(#bisBodyGrad)" />
+              </g>
+
+              <!-- Tentáculo 4 -->
+              <g class="tentacle-proc" data-index="4">
+                <rect class="seg-1" x="195" y="198" width="33" height="29" rx="14" transform="rotate(5 212 212)" fill="url(#bisSegmentGrad)" />
+                <rect class="joint" x="210" y="216" width="8" height="11" rx="3.5" transform="rotate(5 214 221)" fill="#1c0554" opacity="0.8"/>
+                <rect class="seg-2" x="202" y="224" width="32" height="28" rx="14" transform="rotate(4 218 238)" fill="url(#bisSegmentGrad)" />
+                <ellipse class="seg-3" cx="224" cy="262" rx="18" ry="15" fill="url(#bisBodyGrad)" />
+              </g>
+
+              <!-- Tentáculo 5 -->
+              <g class="tentacle-proc" data-index="5">
+                <rect class="seg-1" x="226" y="195" width="34" height="28" rx="14" transform="rotate(15 243 209)" fill="url(#bisSegmentGrad)" />
+                <rect class="joint" x="250" y="211" width="8" height="11" rx="3.5" transform="rotate(14 254 216)" fill="#1c0554" opacity="0.8"/>
+                <rect class="seg-2" x="244" y="218" width="33" height="27" rx="13.5" transform="rotate(12 260 231)" fill="url(#bisSegmentGrad)" />
+                <ellipse class="seg-3" cx="282" cy="254" rx="18" ry="15" transform="rotate(8 282 254)" fill="url(#bisBodyGrad)" />
+              </g>
+
+              <!-- Tentáculo 6 -->
+              <g class="tentacle-proc" data-index="6">
+                <rect class="seg-1" x="252" y="188" width="34" height="26" rx="13" transform="rotate(25 269 201)" fill="url(#bisSegmentGrad)" />
+                <rect class="joint" x="281" y="200" width="11" height="6" rx="3" transform="rotate(22 286 203)" fill="#1c0554" opacity="0.8"/>
+                <rect class="seg-2" x="280" y="204" width="32" height="25" rx="12.5" transform="rotate(20 296 216)" fill="url(#bisSegmentGrad)" />
+                <ellipse class="seg-3" cx="328" cy="230" rx="17" ry="14.5" transform="rotate(12 328 230)" fill="url(#bisBodyGrad)" />
+              </g>
             </g>
 
-            <!-- Boca que abre apenas ao mastigar -->
-            <ellipse id="bis-mouth-eat" cx="190" cy="176" rx="0" ry="0" fill="#1e0557" />
+            <!-- CABEÇA REDONDA ESFÉRICA DO BIS (Sem contorno preto, pura forma 3D redonda!) -->
+            <g id="bis-head-group">
+              <ellipse
+                id="bis-head-dome"
+                cx="190"
+                cy="142"
+                rx="66"
+                ry="64"
+                fill="url(#bisBodyGrad)"
+              />
 
-            <!-- Camada de Acessórios -->
-            <g id="bis-accessory-layer"></g>
+              <!-- Reflexo suave 3D no topo da cabeça redonda -->
+              <ellipse cx="164" cy="104" rx="24" ry="12" transform="rotate(-22 164 104)" fill="rgba(255, 255, 255, 0.25)" />
+
+              <!-- Encaixes sombreados na base da esfera (como na peça 3D da foto) -->
+              <g fill="#1c0554" opacity="0.72">
+                <path d="M136 188 Q142 175 148 191 Z" />
+                <path d="M164 197 Q170 182 176 199 Z" />
+                <path d="M204 199 Q210 182 216 197 Z" />
+                <path d="M232 191 Q238 175 244 188 Z" />
+              </g>
+
+              <!-- Manchinhas de sujeira sem contorno -->
+              <g id="bis-dirt-spots" opacity="0">
+                <circle cx="145" cy="122" r="10" fill="#6b4423" opacity="0.55" />
+                <circle cx="232" cy="160" r="9" fill="#6b4423" opacity="0.5" />
+                <circle cx="175" cy="180" r="8" fill="#6b4423" opacity="0.5" />
+              </g>
+
+              <!-- OLHOS BRANCOS REDONDOS SEM CONTORNO PRETO (Sombra suave 3D + Pupila Preta Viva) -->
+              <g id="bis-eyes-open">
+                <!-- Olho Esquerdo -->
+                <g transform="translate(162, 146)">
+                  <circle cx="0" cy="3" r="19" fill="rgba(18, 3, 52, 0.35)" />
+                  <circle cx="0" cy="0" r="18.5" fill="#ffffff" />
+                  <g id="pupil-left">
+                    <circle cx="-1" cy="1" r="11" fill="#0f172a" />
+                    <circle cx="-5" cy="-3" r="3.5" fill="#ffffff" />
+                  </g>
+                </g>
+
+                <!-- Olho Direito -->
+                <g transform="translate(218, 146)">
+                  <circle cx="0" cy="3" r="19" fill="rgba(18, 3, 52, 0.35)" />
+                  <circle cx="0" cy="0" r="18.5" fill="#ffffff" />
+                  <g id="pupil-right">
+                    <circle cx="-1" cy="1" r="11" fill="#0f172a" />
+                    <circle cx="-5" cy="-3" r="3.5" fill="#ffffff" />
+                  </g>
+                </g>
+              </g>
+
+              <!-- Olhos Fechados / Sorrindo -->
+              <g id="bis-eyes-closed" style="display: none">
+                <path d="M 146 148 Q 162 134 178 148" stroke="#180446" stroke-width="5" stroke-linecap="round" fill="none" />
+                <path d="M 202 148 Q 218 134 234 148" stroke="#180446" stroke-width="5" stroke-linecap="round" fill="none" />
+              </g>
+
+              <!-- Boca ao mastigar -->
+              <ellipse id="bis-mouth-eat" cx="190" cy="175" rx="0" ry="0" fill="#1c0554" />
+
+              <!-- Acessórios Sem Contorno -->
+              <g id="bis-accessory-layer"></g>
+            </g>
           </g>
         </svg>
       </div>
     </main>
 
-    <!-- ================= BARRA INFERIOR DE AÇÕES ESTILO GAME CARTOON ================= -->
-    <footer class="bottom-dock" id="bottom-dock">
-      <!-- COZINHA -->
-      <div class="dock-panel active" data-dock="0">
-        <div class="dock-items">
-          <button class="toy-btn" data-action="feed" data-food="🍤" data-hunger="18" data-coins="5">
-            <span class="item-emoji">🍤</span>
-            <span class="item-label">Camarão</span>
-          </button>
-          <button class="toy-btn" data-action="feed" data-food="🍣" data-hunger="22" data-coins="8">
-            <span class="item-emoji">🍣</span>
-            <span class="item-label">Sushi</span>
-          </button>
-          <button class="toy-btn" data-action="feed" data-food="🍕" data-hunger="25" data-coins="10">
-            <span class="item-emoji">🍕</span>
-            <span class="item-label">Pizza</span>
-          </button>
-          <button class="toy-btn" data-action="feed" data-food="🧁" data-hunger="14" data-fun="10" data-coins="6">
-            <span class="item-emoji">🧁</span>
-            <span class="item-label">Cupcake</span>
-          </button>
-          <button class="toy-btn" data-action="feed" data-food="🍔" data-hunger="30" data-coins="12">
-            <span class="item-emoji">🍔</span>
-            <span class="item-label">Burger</span>
-          </button>
-        </div>
+    <!-- ================= ITENS SOLTOS DIRETO NA BASE DA TELA (SEM CAIXA DENTRO DE CAIXA, ESTILO POU!) ================= -->
+    <footer class="pou-bottom-items" id="bottom-dock">
+
+      <!-- 0. ITENS DA COZINHA (Comidas soltas na mesa para clicar) -->
+      <div class="room-items active" data-dock="0">
+        <button class="free-item" data-action="feed" data-food="🍤" data-hunger="18" data-coins="5" title="Camarão">
+          <span class="free-emoji">🍤</span>
+        </button>
+        <button class="free-item" data-action="feed" data-food="🍣" data-hunger="22" data-coins="8" title="Sushi">
+          <span class="free-emoji">🍣</span>
+        </button>
+        <button class="free-item" data-action="feed" data-food="🍕" data-hunger="25" data-coins="10" title="Pizza">
+          <span class="free-emoji">🍕</span>
+        </button>
+        <button class="free-item" data-action="feed" data-food="🧁" data-hunger="16" data-fun="10" data-coins="6" title="Cupcake">
+          <span class="free-emoji">🧁</span>
+        </button>
+        <button class="free-item" data-action="feed" data-food="🍓" data-hunger="14" data-coins="5" title="Morango">
+          <span class="free-emoji">🍓</span>
+        </button>
       </div>
 
-      <!-- BANHEIRO -->
-      <div class="dock-panel" data-dock="1">
-        <div class="dock-items">
-          <button class="toy-btn" id="btn-soap">
-            <span class="item-emoji">🧼</span>
-            <span class="item-label">Sabonete</span>
-          </button>
-          <button class="toy-btn" id="btn-shower">
-            <span class="item-emoji">🚿</span>
-            <span class="item-label">Ducha</span>
-          </button>
-          <button class="toy-btn" id="btn-brush">
-            <span class="item-emoji">🦆</span>
-            <span class="item-label">Brincar</span>
-          </button>
-        </div>
+      <!-- 1. ITENS DO BANHEIRO (Sabonete, Ducha, Patinho soltos) -->
+      <div class="room-items" data-dock="1">
+        <button class="free-item" id="btn-soap" title="Sabonete">
+          <span class="free-emoji">🧼</span>
+        </button>
+        <button class="free-item" id="btn-shower" title="Chuveiro">
+          <span class="free-emoji">🚿</span>
+        </button>
+        <button class="free-item" id="btn-brush" title="Patinho">
+          <span class="free-emoji">🦆</span>
+        </button>
       </div>
 
-      <!-- SALA DE JOGOS -->
-      <div class="dock-panel" data-dock="2">
-        <div class="dock-items">
-          <button class="toy-btn" id="btn-ball">
-            <span class="item-emoji">⚽</span>
-            <span class="item-label">Bola</span>
-          </button>
-          <button class="toy-btn" id="btn-dance">
-            <span class="item-emoji">📻</span>
-            <span class="item-label">Dançar</span>
-          </button>
-          <button class="toy-btn" id="btn-tickle">
-            <span class="item-emoji">🪶</span>
-            <span class="item-label">Cócegas</span>
-          </button>
-        </div>
+      <!-- 2. ITENS DA SALA DE JOGOS -->
+      <div class="room-items" data-dock="2">
+        <button class="free-item" id="btn-ball" title="Bola">
+          <span class="free-emoji">⚽</span>
+        </button>
+        <button class="free-item" id="btn-dance" title="Música / Dançar">
+          <span class="free-emoji">🎵</span>
+        </button>
+        <button class="free-item" id="btn-tickle" title="Cócegas">
+          <span class="free-emoji">🪶</span>
+        </button>
       </div>
 
-      <!-- QUARTO -->
-      <div class="dock-panel" data-dock="3">
-        <div class="dock-items">
-          <button class="toy-btn" id="btn-toggle-sleep">
-            <span class="item-emoji" id="sleep-btn-icon">💡</span>
-            <span class="item-label" id="sleep-btn-text">Apagar Luz</span>
-          </button>
-          <button class="toy-btn" id="btn-lullaby">
-            <span class="item-emoji">🎻</span>
-            <span class="item-label">Ninar</span>
-          </button>
-        </div>
+      <!-- 3. ITENS DO QUARTO -->
+      <div class="room-items" data-dock="3">
+        <button class="free-item" id="btn-toggle-sleep" title="Luz do Quarto">
+          <span class="free-emoji" id="sleep-btn-icon">💡</span>
+        </button>
+        <button class="free-item" id="btn-lullaby" title="Canção de Ninar">
+          <span class="free-emoji">🎶</span>
+        </button>
       </div>
 
-      <!-- CLOSET (CRIE SEU BIS) -->
-      <div class="dock-panel" data-dock="4">
-        <div class="closet-controls">
-          <div class="closet-row">
-            <div class="swatch-list" id="color-swatches">
-              <button class="swatch active" data-hi="#8b5cf6" data-main="#5b21ff" data-sh="#350ca9" style="background:#5b21ff" title="Roxo Bis"></button>
-              <button class="swatch" data-hi="#c084fc" data-main="#9333ea" data-sh="#581c87" style="background:#9333ea" title="Uva"></button>
-              <button class="swatch" data-hi="#f472b6" data-main="#db2777" data-sh="#831843" style="background:#db2777" title="Chiclete"></button>
-              <button class="swatch" data-hi="#60a5fa" data-main="#2563eb" data-sh="#1e3a8a" style="background:#2563eb" title="Azul"></button>
-              <button class="swatch" data-hi="#34d399" data-main="#059669" data-sh="#064e3b" style="background:#059669" title="Menta"></button>
-              <button class="swatch" data-hi="#fbbf24" data-main="#d97706" data-sh="#78350f" style="background:#d97706" title="Laranja"></button>
-            </div>
-          </div>
-
-          <div class="closet-row">
-            <div class="acc-list" id="accessory-buttons">
-              <button class="chip-btn active" data-acc="keychain">Chaveiro</button>
-              <button class="chip-btn" data-acc="none">Puro</button>
-              <button class="chip-btn" data-acc="crown">Coroa</button>
-              <button class="chip-btn" data-acc="shades">Óculos</button>
-              <button class="chip-btn" data-acc="tophat">Cartola</button>
-              <button class="chip-btn" data-acc="bow">Laço</button>
-            </div>
-          </div>
-
-          <div class="closet-row name-row">
-            <input type="text" id="bis-name-input" maxlength="16" value="Bis" placeholder="Nome do Bis" />
-            <button class="chip-btn random-btn" id="btn-random-bis">Sorteio!</button>
-          </div>
+      <!-- 4. ITENS DO CLOSET (Cores e Acessórios soltos sem caixas) -->
+      <div class="room-items closet-free-items" data-dock="4">
+        <div class="free-swatches" id="color-swatches">
+          <button class="color-drop active" data-hi="#9d74ff" data-main="#5e24ff" data-sh="#310a9e" style="background:#5e24ff"></button>
+          <button class="color-drop" data-hi="#d8b4fe" data-main="#9333ea" data-sh="#581c87" style="background:#9333ea"></button>
+          <button class="color-drop" data-hi="#f9a8d4" data-main="#db2777" data-sh="#831843" style="background:#db2777"></button>
+          <button class="color-drop" data-hi="#93c5fd" data-main="#2563eb" data-sh="#1e3a8a" style="background:#2563eb"></button>
+          <button class="color-drop" data-hi="#6ee7b7" data-main="#059669" data-sh="#064e3b" style="background:#059669"></button>
+          <button class="color-drop" data-hi="#fde047" data-main="#d97706" data-sh="#78350f" style="background:#f59e0b"></button>
         </div>
+
+        <div class="free-accessories" id="accessory-buttons">
+          <button class="free-acc active" data-acc="keychain" title="Argola de Chaveiro">🔑</button>
+          <button class="free-acc" data-acc="none" title="Sem Acessório">🐙</button>
+          <button class="free-acc" data-acc="crown" title="Coroa">👑</button>
+          <button class="free-acc" data-acc="shades" title="Óculos">😎</button>
+          <button class="free-acc" data-acc="tophat" title="Cartola">🎩</button>
+          <button class="free-acc" data-acc="bow" title="Laço">🎀</button>
+          <button class="free-acc" id="btn-random-bis" title="Aleatório">🎲</button>
+        </div>
+
+        <input type="text" class="free-name-input" id="bis-name-input" maxlength="16" value="Bis" placeholder="Nome..." />
       </div>
+
     </footer>
   </div>
 
