@@ -1,9 +1,9 @@
 const ROOMS = [
-  { id: 0, title: 'Cozinha', emoji: '🍳' },
-  { id: 1, title: 'Banheiro', emoji: '🛁' },
-  { id: 2, title: 'Sala de Jogos', emoji: '🎮' },
-  { id: 3, title: 'Quarto', emoji: '🌙' },
-  { id: 4, title: 'Crie seu Bis', emoji: '✨' },
+  { id: 0, title: 'COZINHA' },
+  { id: 1, title: 'BANHEIRO' },
+  { id: 2, title: 'FLIPERAMA' },
+  { id: 3, title: 'QUARTO' },
+  { id: 4, title: 'CLOSET' },
 ];
 
 const state = {
@@ -21,15 +21,13 @@ const state = {
   colors: {
     hi: '#8b5cf6',
     main: '#5b21ff',
-    sh: '#340ca8',
+    sh: '#350ca9',
   },
   accessory: 'keychain',
 };
 
-// Elementos da UI
 const rootStyle = document.documentElement.style;
 const roomTitleEl = document.getElementById('room-title');
-const roomEmojiEl = document.getElementById('room-emoji');
 const roomDotsEl = document.getElementById('room-dots');
 const dockPanels = document.querySelectorAll('.dock-panel');
 const bisSvg = document.getElementById('bis-svg');
@@ -47,62 +45,57 @@ const mouthEat = document.getElementById('bis-mouth-eat');
 const dirtSpots = document.getElementById('bis-dirt-spots');
 const accessoryLayer = document.getElementById('bis-accessory-layer');
 
-// SVGs de Acessórios (incluindo a argola de chaveiro metálica fiel à foto!)
+// Acessórios com contorno cartoon alinhados na cabeça redonda (cx=190, topo y=81)
 const ACCESSORIES = {
   none: '',
   keychain: `
-    <g class="acc-keychain">
-      <!-- Elo preso no topo da cabeça -->
-      <path d="M 173 96 C 173 82, 187 82, 187 96" fill="none" stroke="#cbd5e1" stroke-width="4" stroke-linecap="round"/>
-      <!-- Correntinha metálica -->
-      <ellipse cx="188" cy="80" rx="6" ry="9" fill="none" stroke="#e2e8f0" stroke-width="3.5" transform="rotate(20 188 80)"/>
-      <ellipse cx="198" cy="68" rx="6" ry="9" fill="none" stroke="#94a3b8" stroke-width="3.5" transform="rotate(35 198 68)"/>
-      <!-- Argola grande de chaveiro -->
-      <circle cx="218" cy="54" r="20" fill="none" stroke="#e2e8f0" stroke-width="5"/>
-      <circle cx="218" cy="54" r="20" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="18 8"/>
+    <g stroke="#1e0b36" stroke-width="3.5" stroke-linejoin="round">
+      <path d="M 182 84 C 182 68, 198 68, 198 84" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="198" cy="68" rx="7" ry="10" fill="none" stroke="#cbd5e1" stroke-width="4" transform="rotate(20 198 68)"/>
+      <ellipse cx="210" cy="56" rx="7" ry="10" fill="none" stroke="#94a3b8" stroke-width="4" transform="rotate(35 210 56)"/>
+      <circle cx="232" cy="42" r="21" fill="none" stroke="#1e0b36" stroke-width="8"/>
+      <circle cx="232" cy="42" r="21" fill="none" stroke="#e2e8f0" stroke-width="4.5"/>
     </g>
   `,
   crown: `
-    <g transform="translate(180, 86)">
-      <polygon points="-30,10 -22,-18 0,-2 22,-18 30,10" fill="#facc15" stroke="#ca8a04" stroke-width="2.5" stroke-linejoin="round"/>
-      <circle cx="0" cy="-2" r="3.5" fill="#ec4899"/>
-      <circle cx="-16" cy="2" r="3" fill="#38bdf8"/>
-      <circle cx="16" cy="2" r="3" fill="#38bdf8"/>
+    <g transform="translate(190, 76)" stroke="#1e0b36" stroke-width="4" stroke-linejoin="round">
+      <polygon points="-34,12 -25,-20 0,-2 25,-20 34,12" fill="#facc15"/>
+      <circle cx="0" cy="-2" r="4.5" fill="#f43f5e"/>
+      <circle cx="-18" cy="2" r="4" fill="#38bdf8"/>
+      <circle cx="18" cy="2" r="4" fill="#38bdf8"/>
     </g>
   `,
   shades: `
-    <g transform="translate(180, 145)">
-      <rect x="-54" y="-14" width="46" height="26" rx="6" fill="#090d16" stroke="#e2e8f0" stroke-width="2.5"/>
-      <rect x="8" y="-14" width="46" height="26" rx="6" fill="#090d16" stroke="#e2e8f0" stroke-width="2.5"/>
-      <line x1="-8" y1="-4" x2="8" y2="-4" stroke="#e2e8f0" stroke-width="3.5"/>
-      <line x1="-44" y1="-7" x2="-24" y2="-7" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="18" y1="-7" x2="38" y2="-7" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
+    <g transform="translate(190, 148)" stroke="#1e0b36" stroke-width="4" stroke-linejoin="round">
+      <rect x="-58" y="-16" width="48" height="28" rx="6" fill="#111827"/>
+      <rect x="10" y="-16" width="48" height="28" rx="6" fill="#111827"/>
+      <line x1="-10" y1="-4" x2="10" y2="-4" stroke="#facc15" stroke-width="5"/>
+      <line x1="-46" y1="-8" x2="-24" y2="-8" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="22" y1="-8" x2="44" y2="-8" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/>
     </g>
   `,
   tophat: `
-    <g transform="translate(180, 90)">
-      <ellipse cx="0" cy="6" rx="44" ry="9" fill="#1e293b"/>
-      <rect x="-26" y="-36" width="52" height="42" rx="6" fill="#0f172a"/>
-      <rect x="-26" y="-6" width="52" height="8" fill="#a855f7"/>
+    <g transform="translate(190, 82)" stroke="#1e0b36" stroke-width="4" stroke-linejoin="round">
+      <ellipse cx="0" cy="6" rx="48" ry="10" fill="#1e293b"/>
+      <rect x="-28" y="-38" width="56" height="44" rx="6" fill="#334155"/>
+      <rect x="-28" y="-8" width="56" height="10" fill="#f43f5e"/>
     </g>
   `,
   bow: `
-    <g transform="translate(212, 98) rotate(18)">
-      <polygon points="-24,-14 0,0 -24,14" fill="#f43f5e"/>
-      <polygon points="24,-14 0,0 24,14" fill="#f43f5e"/>
-      <circle cx="0" cy="0" r="6.5" fill="#fda4af"/>
+    <g transform="translate(226, 92) rotate(18)" stroke="#1e0b36" stroke-width="4" stroke-linejoin="round">
+      <polygon points="-26,-15 0,0 -26,15" fill="#f43f5e"/>
+      <polygon points="26,-15 0,0 26,15" fill="#f43f5e"/>
+      <circle cx="0" cy="0" r="7.5" fill="#fde047"/>
     </g>
   `,
 };
 
-// Inicializar indicadores de ponto (dots)
 function initDots() {
   roomDotsEl.innerHTML = ROOMS.map(
     (r, idx) => `<span class="room-dot ${idx === state.roomIndex ? 'active' : ''}" data-idx="${idx}"></span>`
   ).join('');
 }
 
-// Mudar de sala (scroll horizontal estilo Pou)
 function goToRoom(index) {
   const total = ROOMS.length;
   state.roomIndex = (index + total) % total;
@@ -110,7 +103,6 @@ function goToRoom(index) {
 
   const currentRoom = ROOMS[state.roomIndex];
   roomTitleEl.textContent = currentRoom.title;
-  roomEmojiEl.textContent = currentRoom.emoji;
 
   document.querySelectorAll('.room-dot').forEach((dot, idx) => {
     dot.classList.toggle('active', idx === state.roomIndex);
@@ -120,7 +112,6 @@ function goToRoom(index) {
     panel.classList.toggle('active', Number(panel.dataset.dock) === state.roomIndex);
   });
 
-  // Desativa animações específicas de outras salas se sair delas
   if (state.roomIndex !== 2) {
     stopPlayAnimations();
   }
@@ -138,14 +129,14 @@ function stopPlayAnimations() {
   bouncingBall.classList.remove('active');
 }
 
-// Atualizar barras de status e aparência do Bis
 function updateHUD() {
   const setBar = (id, val) => {
     const el = document.getElementById(id);
-    el.style.width = `${Math.max(5, Math.min(100, val))}%`;
+    if (!el) return;
+    el.style.width = `${Math.max(8, Math.min(100, val))}%`;
     if (val < 30) el.style.background = '#ef4444';
     else if (val < 60) el.style.background = '#f59e0b';
-    else el.style.background = 'linear-gradient(90deg, #a855f7, #38bdf8)';
+    else el.style.background = '#22c55e';
   };
 
   setBar('hud-hunger', state.hunger);
@@ -156,11 +147,9 @@ function updateHUD() {
   document.getElementById('hud-coins').textContent = state.coins;
   bisNametag.textContent = state.name || 'Bis';
 
-  // Manchas de sujeira se limpeza < 55
   const dirtOpacity = state.clean < 55 ? Math.min(0.85, (55 - state.clean) / 50) : 0;
   dirtSpots.setAttribute('opacity', dirtOpacity.toFixed(2));
 
-  // Cores 3D do Bis
   document.getElementById('grad-highlight').setAttribute('stop-color', state.colors.hi);
   document.getElementById('grad-main').setAttribute('stop-color', state.colors.main);
   document.getElementById('grad-shadow').setAttribute('stop-color', state.colors.sh);
@@ -169,33 +158,29 @@ function updateHUD() {
   document.getElementById('seg-main').setAttribute('stop-color', state.colors.main);
   document.getElementById('seg-shadow').setAttribute('stop-color', state.colors.sh);
 
-  // Acessório
   accessoryLayer.innerHTML = ACCESSORIES[state.accessory] || '';
 
   saveState();
 }
 
-// Efeito de pulso elástico no Bis
 function triggerSquish() {
   bisSvg.classList.remove('anim-squish');
   void bisSvg.offsetWidth;
   bisSvg.classList.add('anim-squish');
 }
 
-// Partícula flutuante sobre o Bis
 function spawnParticle(symbol, customX = null) {
   const el = document.createElement('div');
   el.className = 'fx-particle';
   el.textContent = symbol;
-  const x = customX !== null ? customX : 110 + Math.random() * 140;
-  const y = 70 + Math.random() * 70;
+  const x = customX !== null ? customX : 115 + Math.random() * 140;
+  const y = 65 + Math.random() * 70;
   el.style.left = `${x}px`;
   el.style.top = `${y}px`;
   fxLayer.appendChild(el);
-  setTimeout(() => el.remove(), 1000);
+  setTimeout(() => el.remove(), 950);
 }
 
-// Piscar olhos ou sorrir com os olhos
 function blinkEyes(duration = 220) {
   if (state.isSleeping) return;
   eyesOpen.style.display = 'none';
@@ -208,28 +193,23 @@ function blinkEyes(duration = 220) {
   }, duration);
 }
 
-// ================= INTERAÇÕES POR SALA =================
-
-// 1. COZINHA: Alimentar o Bis
+// 1. COZINHA
 document.querySelectorAll('[data-action="feed"]').forEach((btn) => {
   btn.addEventListener('click', () => {
     const foodEmoji = btn.dataset.food;
     const hungerGain = Number(btn.dataset.hunger || 15);
     const funGain = Number(btn.dataset.fun || 4);
-    const energyGain = Number(btn.dataset.energy || 0);
     const coinGain = Number(btn.dataset.coins || 5);
 
-    // Anima boca abrindo e mastigando
-    mouthEat.setAttribute('rx', '14');
-    mouthEat.setAttribute('ry', '11');
+    mouthEat.setAttribute('rx', '15');
+    mouthEat.setAttribute('ry', '12');
     setTimeout(() => {
       mouthEat.setAttribute('rx', '0');
       mouthEat.setAttribute('ry', '0');
-    }, 380);
+    }, 360);
 
     state.hunger = Math.min(100, state.hunger + hungerGain);
     state.fun = Math.min(100, state.fun + funGain);
-    state.energy = Math.min(100, state.energy + energyGain);
     state.coins += coinGain;
 
     triggerSquish();
@@ -240,39 +220,35 @@ document.querySelectorAll('[data-action="feed"]').forEach((btn) => {
   });
 });
 
-// 2. BANHEIRO: Ensaboar, Chuveiro e Polir
+// 2. BANHEIRO
 document.getElementById('btn-soap').addEventListener('click', () => {
   state.hasSoap = true;
   triggerSquish();
-
-  // Cria várias bolhas de espuma sobre o Bis
   for (let i = 0; i < 14; i++) {
     const b = document.createElement('div');
     b.className = 'soap-bubble';
-    const size = 16 + Math.random() * 24;
+    const size = 18 + Math.random() * 24;
     b.style.width = `${size}px`;
     b.style.height = `${size}px`;
-    b.style.left = `${95 + Math.random() * 165}px`;
+    b.style.left = `${100 + Math.random() * 170}px`;
     b.style.top = `${75 + Math.random() * 145}px`;
     foamContainer.appendChild(b);
   }
-  spawnParticle('🫧');
+  spawnParticle('🧼');
 });
 
 document.getElementById('btn-shower').addEventListener('click', () => {
-  // Chuva de gotas de água caindo do chuveiro
   for (let i = 0; i < 18; i++) {
     setTimeout(() => {
       const drop = document.createElement('div');
       drop.className = 'water-drop';
-      drop.style.left = `${115 + Math.random() * 130}px`;
-      drop.style.top = `40px`;
+      drop.style.left = `${120 + Math.random() * 135}px`;
+      drop.style.top = `35px`;
       fxLayer.appendChild(drop);
       setTimeout(() => drop.remove(), 550);
     }, i * 35);
   }
 
-  // Remove espuma e limpa o Bis
   setTimeout(() => {
     foamContainer.innerHTML = '';
     state.hasSoap = false;
@@ -287,14 +263,14 @@ document.getElementById('btn-shower').addEventListener('click', () => {
 
 document.getElementById('btn-brush').addEventListener('click', () => {
   state.clean = Math.min(100, state.clean + 20);
-  state.fun = Math.min(100, state.fun + 8);
+  state.fun = Math.min(100, state.fun + 10);
   triggerSquish();
+  spawnParticle('🦆');
   spawnParticle('✨');
-  spawnParticle('💎');
   updateHUD();
 });
 
-// 3. SALA DE JOGOS: Bola, Dança e Cócegas
+// 3. FLIPERAMA / SALA DE JOGOS
 document.getElementById('btn-ball').addEventListener('click', () => {
   state.isPlayingBall = !state.isPlayingBall;
   bouncingBall.classList.toggle('active', state.isPlayingBall);
@@ -331,7 +307,7 @@ document.getElementById('btn-tickle').addEventListener('click', () => {
   updateHUD();
 });
 
-// 4. QUARTO: Dormir / Apagar a Luz
+// 4. QUARTO
 function toggleSleep(forceState = null) {
   state.isSleeping = forceState !== null ? forceState : !state.isSleeping;
   document.body.classList.toggle('is-sleeping', state.isSleeping);
@@ -365,7 +341,7 @@ document.getElementById('btn-lullaby').addEventListener('click', () => {
   updateHUD();
 });
 
-// 5. CLOSET: Crie seu Bis
+// 5. CLOSET
 document.getElementById('color-swatches').addEventListener('click', (e) => {
   const sw = e.target.closest('.swatch');
   if (!sw) return;
@@ -404,7 +380,6 @@ document.getElementById('btn-random-bis').addEventListener('click', () => {
   accs[Math.floor(Math.random() * accs.length)].click();
 });
 
-// Clique direto no Bis (Carinho nos tentáculos / cabeça)
 bisWrapper.addEventListener('click', () => {
   if (state.isSleeping) {
     spawnParticle('💤');
@@ -417,18 +392,16 @@ bisWrapper.addEventListener('click', () => {
   updateHUD();
 });
 
-// ================= NAVEGAÇÃO HORIZONTAL (SETAS, RODA DO MOUSE E SWIPE) =================
+// NAVEGAÇÃO HORIZONTAL
 document.getElementById('btn-prev-room').addEventListener('click', () => goToRoom(state.roomIndex - 1));
 document.getElementById('btn-next-room').addEventListener('click', () => goToRoom(state.roomIndex + 1));
 
-// Teclado (Setas Esquerda / Direita)
 window.addEventListener('keydown', (e) => {
   if (document.activeElement === bisNameInput) return;
   if (e.key === 'ArrowLeft') goToRoom(state.roomIndex - 1);
   if (e.key === 'ArrowRight') goToRoom(state.roomIndex + 1);
 });
 
-// Scroll da roda do mouse ou touchpad -> desliza apenas para o lado (nunca para baixo!)
 let wheelCooldown = false;
 window.addEventListener(
   'wheel',
@@ -449,7 +422,6 @@ window.addEventListener(
   { passive: false }
 );
 
-// Swipe Touch / Arrastar na tela para trocar de sala
 let touchStartX = null;
 window.addEventListener('pointerdown', (e) => {
   if (e.target.closest('button, input')) return;
@@ -466,7 +438,7 @@ window.addEventListener('pointerup', (e) => {
   }
 });
 
-// ================= OLHOS SEGUINDO O CURSOR + PISCAR NATURAL =================
+// OLHOS SEGUINDO O CURSOR
 window.addEventListener('pointermove', (e) => {
   if (state.isSleeping) return;
   const cx = window.innerWidth / 2;
@@ -489,16 +461,15 @@ setInterval(() => {
   }
 }, 3400);
 
-// ================= SALVAR / CARREGAR ESTADO =================
 function saveState() {
   try {
-    localStorage.setItem('bis-pou-save-v2', JSON.stringify(state));
+    localStorage.setItem('bis-pou-save-v3', JSON.stringify(state));
   } catch (_) {}
 }
 
 function loadState() {
   try {
-    const raw = localStorage.getItem('bis-pou-save-v2');
+    const raw = localStorage.getItem('bis-pou-save-v3');
     if (raw) {
       const parsed = JSON.parse(raw);
       Object.assign(state, parsed, { isSleeping: false, isDancing: false, isPlayingBall: false });
